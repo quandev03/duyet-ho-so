@@ -6,6 +6,9 @@
   <title>Trang Chủ</title>
 </head>
 <body>
-  
+  <h1>12345</h1>
+  <?php 
+    require "vendor/autoload.php";
+  ?>
 </body>
 </html>
