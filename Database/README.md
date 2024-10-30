@@ -1,0 +1,1 @@
+# thư mục chưa các hàm xử lí database

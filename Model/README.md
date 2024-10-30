@@ -1,0 +1,1 @@
+# Trang để khai báo các đối tượng
