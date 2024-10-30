@@ -7,7 +7,13 @@
 </head>
 <body>
   <h1>12345</h1>
+  <script>
+    console.log(window.innerHeight);
+    console.log(window.innerWidth);
+    
+  </script>
   <?php 
+    
   ?>
 </body>
 </html>
