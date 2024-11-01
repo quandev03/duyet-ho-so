@@ -12,11 +12,16 @@
     require "../php/them_ho_so.php";
     session_start();
     handleSession();
-    
   ?>
-
-  <div class="header">
-    <h1>Nộp Hồ Sơ</h1>
+  <div>
+    <?php include "component/header.php";?>
   </div>
+  <div class="body_page">
+    <?php include "component/menu.php";?>
+    <div class="">
+
+    </div>
+  </div>
+
 </body>
 </html>
