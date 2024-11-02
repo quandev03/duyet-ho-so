@@ -7,10 +7,15 @@ function handleSession() {
     return header("Location: ../view/dang_nhap.php");
   }
 }
-function checkRoles() {
+function checkRoles($pathAdmin, $pathTeacher, $pathStudent) {
   if ($_SESSION["roles"] == 1) {
-    return true;
-  } else {
-    return header("Location: ../view/dang_nhap.php");
+    include $pathAdmin;
   }
+  elseif ($_SESSION["roles"] == 0) {
+    include $pathTeacher;
+  } elseif($_SESSION["roles"] == -1) {
+    include $pathStudent;
+  }
+   
+
 }

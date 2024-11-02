@@ -18,9 +18,9 @@
   </div>
   <div class="body_page">
     <?php include "component/menu.php";?>
-    <div class="">
-
-    </div>
+    <?php 
+      checkRoles("component/admin/them_ho_so.php", "component/admin/them_ho_so.php", "component/student/them_ho_so.php")
+    ?>
   </div>
 
 </body>

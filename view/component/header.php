@@ -67,13 +67,19 @@
 }
 </style>
 <div class="header_div">
-  <form action="" class="header">
+  <form action="" class="header" method="post">
     <img src="../storage/image_system/logo.webp" alt="logo web"  class="logo">
     <h1>Nộp Hồ Sơ</h1> <!-- Đây là title của trang web -->
     <input type="search" name="input_search" id="">
     <img src="../storage/image_system/icons8-notification-30.png" alt="" class="notification">
-    <button type="submit" class="btn_header">Đăng xuất</button>
+    <button type="submit" name="logout" class="btn_header">Đăng xuất</button>
     <img src="../storage/image_system/logo.webp" alt="" class="avatar">
   </form>
-  
+  <?php 
+    if(isset($_POST["logout"])){
+      session_destroy();
+      // header("Location: ../index.php");
+      echo $_SESSION["username"];
+    }
+  ?>
 </div>

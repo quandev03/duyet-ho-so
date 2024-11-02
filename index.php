@@ -5,13 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Trang Chủ</title>
 </head>
+<?php 
+  require "php/handle.php";
+  handleSession();
+?>
 <body>
-  <h1>12345</h1>
-  <script>
-    console.log(window.innerHeight);
-    console.log(window.innerWidth);
-    
-  </script>
+  
   <?php 
     
   ?>

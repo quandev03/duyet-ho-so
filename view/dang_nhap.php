@@ -16,7 +16,7 @@
     session_start();
     if(isset($_POST["login"])){
       $_SESSION["username"] = "login";
-      $_SESSION["roles"] = 1;
+      $_SESSION["roles"] = -1;
       header("Location: ../index.php");
     }
   ?>
