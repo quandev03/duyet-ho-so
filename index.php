@@ -6,14 +6,22 @@
   <title>Trang Chủ</title>
 </head>
 <body>
-  <h1>12345</h1>
-  <script>
-    console.log(window.innerHeight);
-    console.log(window.innerWidth);
-    
-  </script>
   <?php 
-    
+    require "./php/handle.php";
+    require "./php/them_ho_so.php";
+    session_start();
+    handleSession();
   ?>
+  <div>
+    <?php //include "view/component/header.php"; ?>
+  </div>
+  <div class="body_page">
+    <?php//include "view/component/menu.php"; ?>
+    <?php 
+      include "home.php";
+      checkRoles("view/component/admin/them_ho_so.php", "view/component/admin/them_ho_so.php", "view/component/student/them_ho_so.php");
+    ?>
+  </div>
+
 </body>
 </html>

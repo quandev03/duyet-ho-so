@@ -6,12 +6,16 @@
     <title>Document</title>
 </head>
 <body>
+<?php 
+    require "../php/handle.php";
+    require "../php/them_ho_so.php";
+    session_start();
+    handleSession();
+  ?>
 <div>
-    <?php include "view/them_ho_so.php";?>
-  </div>
-<?php
-    echo "<h1>Chào mừng bạn đến với trang của tôi!</h1>";
-?>
 
+    <?php include "view/component/header.php"; ?>
+  </div>
+    
 </body>
 </html>
