@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nộp Hồ Sơ</title>
+  <link rel="stylesheet" href="../CSS/main.css">
   <link rel="stylesheet" href="../CSS/them_ho_so.css">
 </head>
 <body>
@@ -17,8 +18,8 @@
     <?php include "component/header.php";?>
   </div>
   <div class="body_page">
-    <?php include "component/menu.php";?>
     <?php 
+      include "component/menu.php";
       checkRoles("component/admin/them_ho_so.php", "component/admin/them_ho_so.php", "component/student/them_ho_so.php")
     ?>
   </div>
