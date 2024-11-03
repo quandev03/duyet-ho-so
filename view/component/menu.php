@@ -4,7 +4,7 @@
     padding: 10px;
     width: 300px;
     height: 100%;
-    min-height: 1100px;
+    min-height: 700px;
   }
   button {
     background-color: #152259;
