@@ -16,6 +16,9 @@ function checkRoles($pathAdmin, $pathTeacher, $pathStudent) {
   } elseif($_SESSION["roles"] == -1) {
     include $pathStudent;
   }
-   
-
+}
+function checkRolesAccess($rolesAccess) {
+    if ($_SESSION["roles"] != $rolesAccess) {
+      return header("Location: error.php");
+    }
 }

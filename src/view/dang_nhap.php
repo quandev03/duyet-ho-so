@@ -10,12 +10,25 @@
   <form action="" method="POST">
     <input type="text" name="username" placeholder="Tên đăng nhập">
     <input type="password" name="password" placeholder="Mật khẩu">
-    <button type="submit" name = "login">Đăng nhập</button>
+    <button type="submit" name = "admin">Admin</button>
+    <button type="submit" name = "tearch">Tearch</button>
+    <button type="submit" name = "login">Student</button>
+
   </form>
   <?php 
     session_start();
-    if(isset($_POST["login"])){
+    if(isset($_POST["admin"])){
       $_SESSION["username"] = "login";
+      $_SESSION["roles"] = 1;
+      header("Location: ../index.php");
+    }
+    if(isset($_POST["tearch"])){
+      $_SESSION["username"] = "tearch";
+      $_SESSION["roles"] = 0;
+      header("Location: ../index.php");
+    }
+    if(isset($_POST["login"])){
+      $_SESSION["username"] = "studen";
       $_SESSION["roles"] = -1;
       header("Location: ../index.php");
     }
