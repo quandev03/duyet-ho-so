@@ -2,4 +2,4 @@
 $USERNAME = "root";
 $PASSWORD = "root";
 $DATABASE = "test";
-$HOST = "";
+$HOST = "localhost:3306";

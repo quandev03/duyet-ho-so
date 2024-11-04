@@ -56,26 +56,7 @@
     right: 10%;
     bottom: 10%;
   }
-  .alert_success {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    width: 150px;
-    position: absolute;
-    top: 230px;
-    right: 2%;
-    border-radius: 20px;
-  }
-  .alert_error {
-    background-color: #f44336;
-    color: white;
-    padding: 10px;
-    width: 150px;
-    position: absolute;
-    top: 230px;
-    right: 2%;
-    border-radius: 20px;
-  }
+
   .listNganh {
     margin-left: 2%;
     overflow-y: scroll;
@@ -141,7 +122,7 @@
   }
 </style>
 <div class="body_page_render">
-  <form action="" method="get">
+  <form action="" method="post">
     <button class="btn_upload_ho_ba" name="btnNopHoBa">Nộp học bạ</button>
     <div class="listNganh">
       <?php 
@@ -175,6 +156,13 @@
           echo " setTimeout(() => {document.getElementById('alert').remove()}, 5000);";
           echo "</script>";
         }
+      }
+      if(isset($_POST["btn_nop"])) {
+        echo "<a href='nop_ho_so.php?id=".$_POST["btn_nop"]."' id='navigate'/>";
+        echo "<script>";
+        echo "document.getElementById('navigate').click();";
+        echo "</script>";
+
       }
     ?>
 
