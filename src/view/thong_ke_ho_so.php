@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../CSS/header.css">
   <link rel="stylesheet" href="../CSS/messenge.css">
 </head>
-<body>
+<body> 
   <?php 
     require "../php/handle.php";
     require "../php/them_ho_so.php";

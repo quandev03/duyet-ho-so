@@ -1,6 +1,7 @@
 <style>
 
 </style>
+<div></div>
 <?php
 function header_page($title, $path){
   echo "<div class='header_div'>";
