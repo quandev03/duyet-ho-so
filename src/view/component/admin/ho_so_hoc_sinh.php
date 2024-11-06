@@ -107,6 +107,5 @@ justify-content: space-around;
       echo "<script>";
       echo "document.getElementById('navigate').click()";
       echo "</script>";
-      exit;
     }
     ?>

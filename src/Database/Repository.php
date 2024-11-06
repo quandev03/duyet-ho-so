@@ -32,7 +32,13 @@ class Repository {
 
   public function findAll($columns = "*", $where = [], $sort =[], $option = []): array {
     $sql = "SELECT ".(is_array($columns) ? implode(", ", $columns) : $columns)." FROM ".$this->table;
-    $where ? $sql .= " WHERE ".implode(" AND ", $where) : "";
+    if (!empty($where)) {
+      $conditions = [];
+      foreach ($where as $column => $value) {
+        $conditions[] = "$column = '$value'";
+      }
+      $sql .= " WHERE " . implode(" AND ", $conditions);
+    }
     $sort ? $sql .= " ORDER BY ".implode(", ", $sort) : "";
     $option ? $sql .= " LIMIT ".implode(", ", $option) : "";
     $result = $this->conn->query($sql);
@@ -45,7 +51,7 @@ class Repository {
     return $data;
 
   }
-  public function insertOne( array $data = []): bool {
+  public function insertOne( array $data = []):bool {
     foreach ($data as $key => $value) {
       $keys[] = $key;
       $values[] = $value;
@@ -59,18 +65,13 @@ class Repository {
       $keys[] = $key;
       $values[] = $value;
     }
-    $sql = "UPDATE ".$this->table. " SET ".implode(", ", $keys)." = ".implode(", ", $values)." WHERE ".$where;
+    $sql = "UPDATE ".$this->table. " SET ".implode(", ", $keys)." = ".implode(", ", $values)." WHERE id =".$where;
     return $this->conn->query($sql);
   }
 
-  public function deleteOne( string $where): bool {
-    $sql = "DELETE FROM ".$this->table." WHERE ".$where;
-    return $this->conn->query($sql);
-  }
 
   public function findOne($columns = "*", $where = []) {
     $sql = "SELECT ".(is_array($columns) ? implode(", ", $columns) : $columns)." FROM ".$this->table." WHERE ".implode(" AND ", $where); 
-    // return $sql;
     $result = $this->conn->query($sql);
 
     $data = [];
@@ -78,5 +79,12 @@ class Repository {
       $data = $result->fetch_assoc();
     }
     return empty($data)? False: $data;
+  }
+  // public function deleteALL($columns = "*", $where = []) {
+  //   $sql = "DELETE FROM "..(is_array($columns) ? implode(
+  // }
+  public function deleteOne($id) {
+    $sql = "DELETE FROM ".$this->table." WHERE id= ".$id;
+    return $this->conn->query($sql);
   }
 }

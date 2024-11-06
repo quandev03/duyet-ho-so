@@ -13,6 +13,8 @@
   <?php 
     require "../php/handle.php";
     require "component/header.php";
+    require "../php/nop_ho_so_repo.php";
+    require "../php/messenge.php";
     session_start();
     handleSession();
   ?>
@@ -27,4 +29,5 @@
   </div>
 
 </body>
+
 </html>

@@ -66,18 +66,11 @@
 </style>
 <form method="post" class="body_page_render">
   <?php 
-    renderHoSoHS("12345", "Nguyễn Văn A", "Công nghệ thông tin", "25/9/2024", "Nguyễn Văn B", 0, "C00", [9, 9, 9]);
-    renderHoSoHS("12225", "Nguyễn Văn C", "Công nghệ", "25/9/2024", "Nguyễn Văn B", 1, "A00", [4, 9, 6]);
-    renderHoSoHS("12445", "Nguyễn Văn D", "Hoá Học", "25/9/2024", "Nguyễn Văn B", 1, "A00", [6, 4, 8]);
-    renderHoSoHS("11111", "Nguyễn Văn E", "Vật Lý", "25/9/2024", "Nguyễn Văn B", -1, "A01", [10, 9, 10]);
-
-    if(isset($_POST['xemHoSoHS'])) {
-      echo "<a href='ho_so_hoc_sinh.php?id=".$_POST['xemHoSoHS']."' id = 'navigate'></a>";
-      echo "<script>";
-      echo "document.getElementById('navigate').click()";
-      // echo "alert('Xem hồ sơ')";
-      echo "</script>";
-      // header('Location: ho_so_hoc_sinh.php');
+    include ("../php/them_ho_so_admin.php");
+    foreach($data as $key => $value) {
+      renderHoSoHS($value["id"], layTenHocSinh($value["idHocSinh"]), layTenChuyenNganh($value["nganhXetTuyen"]),$value["createAt"], "", $value["trangThai"], $value["khoiXetTuyen"], [$value["diemMon1"], $value["diemMon2"], $value["diemMon3"]]);
     }
+
+    
   ?>
 </form>
