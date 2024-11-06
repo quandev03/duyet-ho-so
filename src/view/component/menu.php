@@ -5,6 +5,11 @@
     width: 300px;
     height: 100%;
     min-height: 700px;
+    position: relative;
+    float: 1;
+    z-index: 10;
+    display: flex;
+  
   }
   button {
     background-color: #152259;
@@ -31,6 +36,7 @@
     <button type="submit" name="menu" value="profile">Profile</button>
     <hr>
     <button type="submit" name="menu" value="about">Thông Tin</button>
+
     <?php 
       if($_SESSION['roles'] == 1){
         echo "<hr>";
@@ -40,6 +46,9 @@
       }
 
     ?>
+    <hr>
+    <button type="submit" name="menu" value="dangXuat">Đăng xuất</button>
+
 
   </form>
   <?php 
