@@ -15,6 +15,9 @@
     require "../php/them_ho_so.php";
     require "../php/data.php";
     require "component/header.php";
+    require "../php/them_ho_so_repo.php";
+    require "../php/thong_ke_ho_so.php";
+    require "../../config.php";
 
     session_start();
     handleSession();

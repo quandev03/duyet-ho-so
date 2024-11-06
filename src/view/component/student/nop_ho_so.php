@@ -57,57 +57,43 @@
   height: 670%;
  }
 </style>
+<?php 
+    require '../php/data.php';
+    $idNganh = $_GET['id'];
+    $infoNganh = layThongTinNganhXetTuyen($idNganh)[0];
+    $khoiXetTuyen = explode(' ', $infoNganh['khoiXetTuyen']);
+  ?>
 <div class="body_page_render">
 <form method="post" class="body_page_form">
   <div>
   <h2>Chuyên Ngành</h2>
-  <select name="chuyenNhanh" id="" class="chuyenNhanh" readonly>
-    <option value="1">Công Nghệ Thông Tin</option>
-    <option value="2">Sư Phạm Tin Học</option>
-    <option value="3">Sinh Học</option>
-    <option value="4">Hoá Học</option>
-    <option value="5">Vật Lý</option>
-    <option value="6">Địa Lí</option>
-    <option value="7">Lịch Sử</option>
+  <select name="chuyenNhanh" id="" class="chuyenNhanh" >
+    <option value="<?php echo $infoNganh['id']; ?>"><?php echo $infoNganh['tenNganhXetTuyen']; ?></option>
   </select>
   </div>
 
   <div class="khoiXetTuyet">
   <h2>Nhập điểm</h2>
     <select name="khoi" class="chonKhoi" id="">
-      <option value="0" <?php if(isset($_POST['btnSelect']) && $_POST['khoi'] == "0") echo "selected"; ?>>Chọn khối xét tuyển</option>
-      <option value="A00" <?php if(isset($_POST['btnSelect']) && $_POST['khoi'] == "A00") echo "selected"; ?>>A00</option>
-      <option value="A01" <?php if(isset($_POST['btnSelect']) && $_POST['khoi'] == "A01") echo "selected"; ?>>A01</option>
-      <option value="B00" <?php if(isset($_POST['btnSelect']) && $_POST['khoi'] == "B00") echo "selected"; ?>>B00</option>
-      <option value="C00" <?php if(isset($_POST['btnSelect']) && $_POST['khoi'] == "C00") echo "selected"; ?>>C00</option>
-      <option value="D01" <?php if(isset($_POST['btnSelect']) && $_POST['khoi'] == "D01") echo "selected"; ?>>D01</option>
+      <?php 
+        foreach($khoiXetTuyen as $key => $value) {
+          echo "<option value='$value'>$value</option>";
+        }
+        ?>
+
     </select>
     <button name="btnSelect" class="btnRefresh"><img src="../storage/image_system/icons8-refresh-20.png" alt=""></button>
   </div>
-  <?php 
-    require '../php/data.php';
-  ?>
+  
   <div class="nhapDiem">
     <label for="mon1"><?php if(isset($_POST['btnSelect']) || isset($_POST['btnNopHoSo'])) { echo $dsKhoiXetTuyen[$_POST['khoi']][0];} ?></label>
     <input type="number" name="mon1" id="" placeholder="Nhập điểm" max="10" min="0" value="0" class="input_diem">
     <label for="mon2"><?php if(isset($_POST['btnSelect']) || isset($_POST['btnNopHoSo'])) { echo $dsKhoiXetTuyen[$_POST['khoi']][1];} ?></label>
-    <input type="number" name="mon1" id="" placeholder="Nhập điểm" max="10" min="0" value="0" class="input_diem">
+    <input type="number" name="mon2" id="" placeholder="Nhập điểm" max="10" min="0" value="0" class="input_diem">
     <label for="mon3"><?php if(isset($_POST['btnSelect']) || isset($_POST['btnNopHoSo'])) { echo $dsKhoiXetTuyen[$_POST['khoi']][2];}?></label> 
     <input type="number" name="mon3" id="" placeholder="Nhập điểm" max="10" min="0" value="0" class="input_diem">
   </div>
   <button class="btnNopHoSo" name="btnNopHoSo">Nộp</button>
-  <?php 
-    if(isset($_POST['btnNopHoSo'])) {
-      if($_POST['khoi']!= '0'){
-        echo "Ok";
-      }
-      else {
-        echo "<div class='alert_error' id='alert'>Nộp học bạ thất bại</div>";
-        echo "<script>";
-        echo " setTimeout(() => {document.getElementById('alert').remove()}, 5000);";
-        echo "</script>";
-      }
-    }
-  ?>
+  <?php include "../php/nop_ho_so.php" ?>
 </form>
 </div>

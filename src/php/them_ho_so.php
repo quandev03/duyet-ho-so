@@ -81,7 +81,7 @@ function renderHoSoHS (
   } else {
     echo "        <h4 id='trangThaiHoSo'><font color= '#FF0000'> Trạng thái: Từ chối</font></h4>";
   }
-  echo "        <h5>Nguời duyệt: Nguyễn Văn B</h5>";
+  echo "        <h5>Nguời duyệt: ".$nguoiDuyet."</h5>";
   echo "      </div>";
   echo "    </div>";
   echo "    <div class='btnListXetTuyen'>";
@@ -89,7 +89,7 @@ function renderHoSoHS (
   echo "      <button type='submit' class='btnXetTuyen warningBtn' name='tuChoiHoSoHS' value=".$idHoSo.">Không</button>";
   echo "      <button type='submit' class='btnXetTuyen infoBtn' name='xemHoSoHS' value=".$idHoSo.">Xem hồ sơ</button>";
   if($_SESSION['roles'] == 1) {
-    echo "<button type='submit' class='btnXetTuyen deleteBrn' name='xoaHoSoHS'>Xóa</button>";
+    echo "<button type='submit' class='btnXetTuyen deleteBrn' name='xoaHoSoHS' value=".$idHoSo.">Xóa</button>";
   }
   echo "    </div>";
   echo "  </div>";
