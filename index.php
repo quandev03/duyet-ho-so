@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Trang chủ - Xét tuyển</title> <!-- Cải thiện tiêu đề -->
-  <!-- <link rel="stylesheet" href="./CSS/main.css"> -->
+  <link rel="stylesheet" href="./src/CSS/index.css">
+  <link rel="stylesheet" href="src/CSS/main.css">
   <!-- <link rel="stylesheet" href="./CSS/them_ho_so.css"> -->
   <!-- <link rel="stylesheet" href="./CSS/messenge.css"> -->
   <!-- <link rel="stylesheet" href="./CSS/nghanh_xet_tuyen.css"> -->

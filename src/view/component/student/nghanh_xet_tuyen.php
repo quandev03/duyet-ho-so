@@ -3,13 +3,14 @@
   .container {
   display: flex;
   flex-direction: column;
-  margin-left: 20%;
-  width: 70%;
+  align-items: center;
+  width: 80%;
+  margin: 0px;
   margin-top: 6%;
 }
 
 .nganh {
-  width: 80%;
+  width: 100%;
   padding: 10px;
   border-radius: 20px;
   background-color: #EBF5EE;
@@ -72,9 +73,11 @@
 }
 
 .body_page_render {
-  position: absolute;
+  width: 75%;
+  height: 720px;
   overflow-y: auto; /* Cho phép cuộn nếu nội dung vượt quá chiều cao */
   background-color: #f9f9f9; /* Thêm màu nền cho dễ nhìn */
+
 }
 
 </style>

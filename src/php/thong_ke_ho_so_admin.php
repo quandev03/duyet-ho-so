@@ -1,2 +1,2 @@
 <?php
-  $data = getDataThongKe();
+  echo "Hello World";
