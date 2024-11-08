@@ -1,18 +1,42 @@
 <?php
-  session_start();
-  if (isset($_POST["admin"])) {
-    $_SESSION["username"] = "login";
-    $_SESSION["roles"] = 1;
-    header("Location: ../index.php");
-  }
-  if (isset($_POST["teacher"])) {
-    $_SESSION["username"] = "tearch";
-    $_SESSION["roles"] = 0;
-    header("Location: ../");
-  }
-  if (isset($_POST["btn_dang_nhap"])) {
-    $_SESSION["username"] = "TEACHER";
-    $_SESSION["roles"] = -1;
-    $_SESSION["userId"] = 3;
-    header("Location: ../..");
-  }
+session_start();
+// if (isset($_POST["btn_dang_nhap"])) {
+//     $_SESSION['username'] = 'admin';
+//     $_SESSION['roles'] = -1;
+//     $_SESSION['idUser'] = 1;
+
+// }
+// Kiểm tra nếu người dùng đã gửi form đăng nhập
+if (isset($_POST["btn_dang_nhap"])) {
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+
+    $mysqli = new Repository($HOST, $USERNAME_BD, $PASSWORD_BD, $DATABASE_BD, "account");
+
+    $username = trim($username);
+    $user = $mysqli->findAll("*", ["username" => $username]);
+    // print_r($user);
+
+    if (count($user) > 0) {
+        $userData = $user[0];
+
+        if (md5($password) === $userData['password']) {
+            $_SESSION['user_id'] = $userData['id'];
+            $_SESSION['username'] = $username;
+            $_SESSION['role'] = $userData['roles'];
+            displayMessage("Mật khẩu trùng khớp", "success");
+            header("Location: /duyet-ho-so/index.php");
+            exit();
+            
+
+
+        } else {
+            displayMessage("Mật khẩu không đúng", "error");
+        }
+    } else {
+        displayMessage("Tên người dùng không tồn tại", "error");
+    }
+}
+
+
+

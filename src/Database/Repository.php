@@ -1,8 +1,8 @@
 <?php
 class Repository {
-
   private $conn;
   private $table;
+
   public function __construct(
     String $HOST, 
     String $USERNAME,
@@ -10,46 +10,59 @@ class Repository {
     String $DATABASE,
     String $Table
   ){
-    $this -> conn = mysqli_connect($HOST, $USERNAME, $PASSWORD, $DATABASE);
-    $this -> table = $Table;
+    $this->conn = mysqli_connect($HOST, $USERNAME, '', $DATABASE);
+    if (!$this->conn) {
+      die("Connection failed: " . mysqli_connect_error());
+    }
+    $this->table = $Table;
   }
 
-
-  public function __model(){
+  public function __model() {
     return $this->conn;
   }
 
   public function createOne(array $data = []) {
+    $keys = [];
+    $values = [];
+
     foreach ($data as $key => $value) {
       $keys[] = $key;
-      $values[] = $value;
+      $values[] = "'" . mysqli_real_escape_string($this->conn, $value) . "'";
     }
-    $sql = "INSERT INTO ".$this->table . " (".implode(", ", $keys).") VALUES (".implode(", ", $values).")";
-    return $this->conn->query($sql);
+    $sql = "INSERT INTO " . $this->table . " (" . implode(", ", $keys) . ") VALUES (" . implode(", ", $values) . ")";
+    if (!$this->conn->query($sql)) {
+      die("Error in createOne: " . $this->conn->error);
+    }
+
+    return true;
   }
 
-
-
-  public function findAll($columns = "*", $where = [], $sort =[], $option = []): array {
-    $sql = "SELECT ".(is_array($columns) ? implode(", ", $columns) : $columns)." FROM ".$this->table;
+  public function findAll($columns = "*", $where = [], $sort = [], $option = []): array {
+    $sql = "SELECT " . (is_array($columns) ? implode(", ", $columns) : $columns) . " FROM " . $this->table;
+    
     if (!empty($where)) {
       $conditions = [];
       foreach ($where as $column => $value) {
-        $conditions[] = "$column = '$value'";
+        $conditions[] = "$column = '" . mysqli_real_escape_string($this->conn, $value) . "'";
       }
       $sql .= " WHERE " . implode(" AND ", $conditions);
     }
     $sort ? $sql .= " ORDER BY ".implode(", ", $sort) : "";
     $option ? $sql .= " ".implode(", ", $option) : "";
     $result = $this->conn->query($sql);
+
+    // Check if the query succeeded
+    if (!$result) {
+      die("Error in findAll: " . $this->conn->error);
+    }
+
     $data = [];
     if ($result->num_rows > 0) {
-      while($row = $result->fetch_assoc()) {
+      while ($row = $result->fetch_assoc()) {
         $data[] = $row;
       }
     }
     return $data;
-
   }
   public function insertOne( array $data = []): bool {
     foreach ($data as $key => $value) {
@@ -62,8 +75,7 @@ class Repository {
 
   public function updateOne(array $data = [], string $where) {
     foreach ($data as $key => $value) {
-      $keys[] = $key;
-      $values[] = $value;
+      $set[] = "$key = '" . mysqli_real_escape_string($this->conn, $value) . "'";
     }
     $set = [];
     foreach ($data as $key => $value) {
@@ -75,12 +87,20 @@ class Repository {
 
 
   public function findOne($columns = "*", $where = []) {
-    $sql = "SELECT ".(is_array($columns) ? implode(", ", $columns) : $columns)." FROM ".$this->table." WHERE ".implode(" AND ", $where); 
+    $sql = "SELECT " . (is_array($columns) ? implode(", ", $columns) : $columns) . " FROM " . $this->table;
+
+    if (!empty($where)) {
+      $conditions = [];
+      foreach ($where as $column => $value) {
+        $conditions[] = "$column = '" . mysqli_real_escape_string($this->conn, $value) . "'";
+      }
+      $sql .= " WHERE " . implode(" AND ", $conditions);
+    }
+
     $result = $this->conn->query($sql);
 
-    $data = [];
-    if ($result->num_rows > 0) {
-      $data = $result->fetch_assoc();
+    if (!$result) {
+      die("Error in findOne: " . $this->conn->error);
     }
     return empty($data)? False: $data;
   }

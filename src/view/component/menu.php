@@ -6,10 +6,10 @@
     height: 100%;
     min-height: 700px;
     position: relative;
-    float: 1;
+    float: left;
     z-index: 10;
     display: flex;
-  
+    flex-direction: column;
   }
   .btn_navigate {
     background-color: #152259;
@@ -20,13 +20,16 @@
     cursor: pointer;
     width: 100%;
     font-size: x-large;
-    font-style: bold;
+    font-weight: bold;
+  }
+  button.selected {
+    background-color: #f39c12; /* Color for selected button */
   }
   hr {
     width: 50%;
   }
-
 </style>
+
 <div class="menu">
   <form action="" method="post">
     <button type="submit" class="btn_navigate" name="menu" value="home">Trang Chủ</button>
@@ -38,19 +41,19 @@
     <button type="submit" class="btn_navigate" name="menu" value="about">Thông Tin</button>
 
     <?php 
-      if($_SESSION['roles'] == 1){
+      if(isset($_SESSION['roles']) && $_SESSION['roles'] == 1){
         echo "<hr>";
         echo "<button type='submit' class='btn_navigate' name='menu' value='thongKe'>Thống kê</button>";
         echo "<hr>";
         echo "<button type='submit' class='btn_navigate' name='menu' value='phanQuyen'>Phân quyền</button>";
       }
-
     ?>
     <hr>
     <button type="submit" class="btn_navigate" name="menu" value="dangXuat">Đăng xuất</button>
 
 
   </form>
+
   <?php 
     if(isset($_POST['menu'])) {
       $menu = $_POST['menu'];
@@ -102,7 +105,6 @@
               break;
             }
         default:
-          # code...
           break;
       }
     }

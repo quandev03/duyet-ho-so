@@ -6,10 +6,8 @@
   <title>Trang chủ - Xét tuyển</title> <!-- Cải thiện tiêu đề -->
   <link rel="stylesheet" href="./src/CSS/index.css">
   <link rel="stylesheet" href="src/CSS/main.css">
-  <!-- <link rel="stylesheet" href="./CSS/them_ho_so.css"> -->
-  <!-- <link rel="stylesheet" href="./CSS/messenge.css"> -->
-  <!-- <link rel="stylesheet" href="./CSS/nghanh_xet_tuyen.css"> -->
-  
+  <link rel="stylesheet" href="./src/CSS/them_ho_so.css">
+  <link rel="stylesheet" href="./src/CSS/messenge.css">
   <style>
     .header {
       display: flex;
@@ -80,16 +78,14 @@
 </head>
 <body>
   <?php 
-    // Khởi động session
-    // session_start(); 
-
     require "./src/php/handle.php";
     require "./src/php/them_ho_so.php";
     require "./src/php/data.php";
     require "./src/view/component/header.php";
+    // require "./src/php/them_ho_so_repo.php"; 
+    require "./src/php/messenge.php";
    
     handleSession();
-    checkRolesAccess("1");
   ?>
 
   <div>
@@ -99,7 +95,9 @@
   <div class="body_page">
     <?php 
         include "./src/view/component/menu.php";
-        include "./src/view/component/student/nghanh_xet_tuyen.php"; 
+        // checkRoles("./src/view/component/admin/them_ho_so.php", "./src/view/component/admin/them_ho_so.php", "");
+
+    
     ?>
   </div>
 </body>
