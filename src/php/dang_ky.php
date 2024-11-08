@@ -13,9 +13,9 @@ if (isset($_POST["dangKy"])) {
           $mysqli = new Repository($HOST, $USERNAME_BD, $PASSWORD_BD, $DATABASE_BD, "account");
           
           $dataInsert = [
-            "username"=> "'".$username."'",
-            "password"=> "'".md5($password)."'",
-            "full_name"=> "'".$fullname."'",
+            "username"=> "".$username."",
+            "password"=> "".md5($password)."",
+            "full_name"=> "".$fullname."",
             "roles"=> $role
           ];
           $checkExist =  $mysqli->findAll("*", ["username" => $username]);

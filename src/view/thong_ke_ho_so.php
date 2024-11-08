@@ -21,7 +21,7 @@
 
     session_start();
     handleSession();
-    checkRolesAccess("1");
+    // checkRolesAccess("1");
   ?>
   <div>
     <?php header_page("Thống kê hồ sơ", '..');?>

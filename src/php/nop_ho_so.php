@@ -36,4 +36,4 @@ if(isset($_POST['btnNopHoSo'])) {
   }
   
 }
- 
+ //sử lý logic nộp hồ sơ

@@ -102,17 +102,17 @@ $username = "Nguyễn Văn A";
     <h1>Hồ sơ sinh viên <?php echo $username; ?></h1>
     <div class="container">
         <?php 
-        renderProfile("../storage/file_upload/avata.png", "Nguyễn Văn A", ["A01", "B00"], [8.0, 7.5],"công nghệ thông tin", "../storage/file_upload/anhHB.jpg");
+        renderProfile("../storage/file_upload/avata.png", "Nguyễn Văn A", ["A01", "B00"], [8.0, 7.5, 9.0],"công nghệ thông tin", "../storage/file_upload/anhHB.jpg");
         ?>
     </div>
 </form>
 <?php
 function renderProfile($avata, $tenDangKi, $khoiXetTuyen = [], $diemXetTuyen = [], $nganh, $anhHocBa) {
-    echo "<div class='profile'>";
     
     // Ảnh đại diện
     echo "<div class='avata'>";
     echo "<img src='" . htmlspecialchars($avata) . "' alt='Ảnh đại diện' />";
+    echo "<Button>Sửa ảnh đại diện <Button/>";
     echo "</div>";   
     
     // Thông tin sinh viên
@@ -129,10 +129,8 @@ function renderProfile($avata, $tenDangKi, $khoiXetTuyen = [], $diemXetTuyen = [
     echo "</div>";
 
     // Ảnh học bạ
-    echo "<div class='hocba'>";
-    echo "<p>Ảnh học bạ: </p>";
-    echo "<img src='" . htmlspecialchars($anhHocBa) . "' alt='Ảnh học bạ' />";
-    echo "</div>";
+    echo "<Button>ảnh học bạ<Button/>";
+
     
     echo "</div>"; 
 }

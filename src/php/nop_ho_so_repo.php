@@ -1,5 +1,5 @@
 <?php
-require "../Database/Repository.php";
+require "src\Database\Repository.php";
 require "../../config.php";
 $nganhXetTuyenRepo = new Repository($HOST, $USERNAME_BD, $PASSWORD_BD, $DATABASE_BD, 'nganh_xet_tuyen');
 $hoSoRepo = new Repository($HOST, $USERNAME_BD, $PASSWORD_BD, $DATABASE_BD, 'ho_so_xet_tuyen');
@@ -22,3 +22,4 @@ function nopHoSo($data, $idUser){
   // return $dataInsert;
   return $hoSoRepo->insertOne($dataInsert);
 }
+// lay du lieu

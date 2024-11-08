@@ -6,10 +6,10 @@
     height: 100%;
     min-height: 700px;
     position: relative;
-    float: 1;
+    float: left;
     z-index: 10;
     display: flex;
-  
+    flex-direction: column;
   }
   button {
     background-color: #152259;
@@ -20,58 +20,56 @@
     cursor: pointer;
     width: 100%;
     font-size: x-large;
-    font-style: bold;
+    font-weight: bold;
+  }
+  button.selected {
+    background-color: #f39c12; /* Color for selected button */
   }
   hr {
     width: 50%;
   }
-
 </style>
+
 <div class="menu">
   <form action="" method="post">
-    <button type="submit" name="menu" value="home">Trang Chủ</button>
+    <button type="submit" name="menu" value="home" class="<?php echo (isset($_POST['menu']) && $_POST['menu'] == 'home') ? 'selected' : ''; ?>">Trang Chủ</button>
     <hr>
-    <button type="submit" name="menu" value="themHoSo">Thêm hồ sơ</button>
+    <button type="submit" name="menu" value="themHoSo" class="<?php echo (isset($_POST['menu']) && $_POST['menu'] == 'themHoSo') ? 'selected' : ''; ?>">Thêm hồ sơ</button>
     <hr>
-    <button type="submit" name="menu" value="profile">Profile</button>
-    <hr>
-    <button type="submit" name="menu" value="about">Thông Tin</button>
+    <button type="submit" name="menu" value="profile" class="<?php echo (isset($_POST['menu']) && $_POST['menu'] == 'profile') ? 'selected' : ''; ?>">Profile</button>
 
     <?php 
-      if($_SESSION['roles'] == 1){
+      if(isset($_SESSION['roles']) && $_SESSION['roles'] == 1){
         echo "<hr>";
-        echo "<button type='submit' name='menu' value='thongKe'>Thống kê</button>";
+        echo "<button type='submit' name='menu' value='thongKe' class='" . (isset($_POST['menu']) && $_POST['menu'] == 'thongKe' ? 'selected' : '') . "'>Thống kê</button>";
         echo "<hr>";
-        echo "<button type='submit' name='menu' value='phanQuyen'>Phân quyền</button>";
+        echo "<button type='submit' name='menu' value='phanQuyen' class='" . (isset($_POST['menu']) && $_POST['menu'] == 'phanQuyen' ? 'selected' : '') . "'>Phân quyền</button>";
       }
-
     ?>
     <hr>
-    <button type="submit" name="menu" value="dangXuat">Đăng xuất</button>
-
-
+    <button type="submit" name="menu" value="dangXuat" class="<?php echo (isset($_POST['menu']) && $_POST['menu'] == 'dangXuat') ? 'selected' : ''; ?>">Đăng xuất</button>
   </form>
+
   <?php 
     if(isset($_POST['menu'])) {
       $menu = $_POST['menu'];
       switch ($menu) {
         case 'home':
-          header("Location: ../index.php");
-          break;
+          header("Location: ./index.php");
+          exit();
         case 'themHoSo':
-          header("Location: them_ho_so.php");
-          break;
+          header("Location: ./src/view/them_ho_so.php");
+          exit();
         case 'profile':
-          header("Location: ../index.php?profile");
-          break;
-        case 'about':
-          header("Location: ../index.php?about");
-          break;
+          header("Location: ./src/view/xem_ho_so_hoc_sinh_da_dang_ki.php");
+          exit();
         case 'thongKe':
-          header("Location: thong_ke_ho_so.php");
-          break;
+          header("Location: ./src/view/thong_ke_ho_so.php");
+          exit();
+        case 'dangXuat':
+          header("Location: src/view/logout.php");
+          exit();
         default:
-          # code...
           break;
       }
     }

@@ -92,6 +92,7 @@
       </select>
     </div>
     <button type="submit" name="dangKy">Đăng ký</button>
+    <a href="dang_nhap.php">Đã có tài khoản</a>
   </form>
   <?php include "../php/dang_ky.php"?>
 </body>
