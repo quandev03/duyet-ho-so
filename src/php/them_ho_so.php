@@ -1,27 +1,4 @@
 <?php 
-function checkSizeFile( $file) {
-  if ($file["size"] < 100*1024*1024 && $file["size"] > 0) {
-    return true;
-  }else {
-    return false;
-  }
-} 
-
-function nopHocBa(){
-  echo "<dialog open id='dialogNopHoSo'>";
-  echo "  <form action='' method='post' enctype='multipart/form-data'>";
-  echo "    <input class='dialog_input' type='file' name='file' id='file' accept='application/pdf'>";
-  echo "    <button class='dialog_btn cancel_btn' type='submit' name='btnCancelNopHoBa'>Huỷ</button>";
-  echo "    <button class='dialog_btn success_btn' type='submit' name='btnNop'>Nộp</button>";
-  echo "  </form>";
-  echo "</dialog>";
-}
-
-function cancelDialog(){
-  echo "<script>";
-  echo "  document.getElementById('dialogNopHoSo').close();";
-  echo "</script>";
-}
 
 function renderNganh($tenNganh, $khoiXetTuyen =[], $ngayBatDau, $ngayKetThuc, $idNganh){
   echo "<div class='nganhXetTuyen'>";
@@ -55,6 +32,9 @@ function renderHoSoHS (
 ){
   $dsKhoiXetTuyen = ["A00" => ["Toán", "Lý", "Hoá"], "A01" => ["Toán", "Lý", "Anh", "Sinh"], "B00" => ["Toán", "Hoá", "Sinh"], "C00" => ["Văn", "Sử", "Địa"],  "D01" => ["Toán", "Văn", "Anh"]];
   $monXetTuyen = $dsKhoiXetTuyen[$khoiXetTuyen];
+  if($nguoiDuyet == null) {
+    $nguoiDuyet= "Chưa có người duyệt";
+  }
   echo "  <div class='hoSo'>";
   echo "    <div class='infoHS'>";
   echo "      <h3 class='idHS'>ID:".$idHoSo."</h3>";

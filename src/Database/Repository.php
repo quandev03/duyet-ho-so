@@ -40,7 +40,7 @@ class Repository {
       $sql .= " WHERE " . implode(" AND ", $conditions);
     }
     $sort ? $sql .= " ORDER BY ".implode(", ", $sort) : "";
-    $option ? $sql .= " LIMIT ".implode(", ", $option) : "";
+    $option ? $sql .= " ".implode(", ", $option) : "";
     $result = $this->conn->query($sql);
     $data = [];
     if ($result->num_rows > 0) {
@@ -51,7 +51,7 @@ class Repository {
     return $data;
 
   }
-  public function insertOne( array $data = []):bool {
+  public function insertOne( array $data = []): bool {
     foreach ($data as $key => $value) {
       $keys[] = $key;
       $values[] = $value;
@@ -60,12 +60,16 @@ class Repository {
     return $this->conn->query($sql);
   }
 
-  public function updateOne(array $data = [], string $where): bool {
+  public function updateOne(array $data = [], string $where) {
     foreach ($data as $key => $value) {
       $keys[] = $key;
       $values[] = $value;
     }
-    $sql = "UPDATE ".$this->table. " SET ".implode(", ", $keys)." = ".implode(", ", $values)." WHERE id =".$where;
+    $set = [];
+    foreach ($data as $key => $value) {
+      $set[] = "$key = '$value'";
+    }
+    $sql = "UPDATE ".$this->table. " SET ".implode(", ", $set)." WHERE id =".$where;
     return $this->conn->query($sql);
   }
 
@@ -80,11 +84,30 @@ class Repository {
     }
     return empty($data)? False: $data;
   }
-  // public function deleteALL($columns = "*", $where = []) {
-  //   $sql = "DELETE FROM "..(is_array($columns) ? implode(
-  // }
+
   public function deleteOne($id) {
     $sql = "DELETE FROM ".$this->table." WHERE id= ".$id;
     return $this->conn->query($sql);
+  }
+
+  public function customFindLike($columns = "*", $where = [], $sort =[], $option = []) {
+    $sql = "SELECT ".(is_array($columns) ? implode(", ", $columns) : $columns)." FROM ".$this->table;
+    if (!empty($where)) {
+      $conditions = [];
+      foreach ($where as $column => $value) {
+        $conditions[] = "$column like '$value'";
+      }
+      $sql .= " WHERE " . implode(" AND ", $conditions);
+    }
+      $sort ? $sql .= " ORDER BY ".implode(", ", $sort) : "";
+      $option ? $sql .= " ".implode(", ", $option) : "";
+      $result = $this->conn->query($sql);
+      $data = [];
+      if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+          $data[] = $row;
+        }
+      }
+      return $data;
   }
 }

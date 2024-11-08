@@ -22,3 +22,8 @@ function nopHoSo($data, $idUser){
   // return $dataInsert;
   return $hoSoRepo->insertOne($dataInsert);
 }
+function checkDaNopHoSo($idUser, $idNganh){
+  global $hoSoRepo;
+  $data = $hoSoRepo->findAll(["id"], ["idHocSinh" => $idUser, "nganhXetTuyen"=> $idNganh]);
+  return count($data) > 0;
+}

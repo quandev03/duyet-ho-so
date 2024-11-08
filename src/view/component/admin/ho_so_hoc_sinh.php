@@ -52,7 +52,7 @@ justify-content: space-around;
 }
 .btnCancel {
   position:absolute;
-  bottom:  32%;
+  bottom:  27%;
   left: 25%;
   width: 50px;
   height: 50px;
@@ -71,41 +71,43 @@ justify-content: space-around;
 <?php 
   $khoiXetTuyen = "A00";
 ?>
+  <?php include "../php/ho_so_hoc_sinh.php"; ?>
 <form class='body_page_render' method="post">
     <div class="display">
       <div class='infoHoSo'>
-        <h3 class='text'>ID: 11234</h3>
-        <h2 class='text'>Họ tên: Nguyễn Văn A</h2>
+        <h3 class='text'>ID: <?php echo $thongTinHoSo["id"]?></h3>
+        <h2 class='text'>Họ tên: <?php echo $thongTinHoSo["full_name"]?></h2>
       </div>
       <div class='infoChuyenNgạnh'>
         <div class="chuyenNganh">
-          <h3 class='text'>Ngành: Công nghệ thông tin</h3>
-          <p class='text'>Ngày đăng ký: 25/9/2024</p>
+          <h3 class='text'>Ngành: <?php echo $thongTinHoSo["tenNganhXetTuyen"]?></h3>
+          <p class='text'>Ngày đăng ký: <?php echo $thongTinHoSo["createAt"]?></p>
         </div>
-        <button type='submit' class="btnXemHocBa">Xem học bạ</button>
+        <button type='submit' class="btnXemHocBa" name="btnXemHocBa">Xem học bạ</button>
       </div>
       <div class='xetTuyen'>
         <h4>Khối: <?php echo $khoiXetTuyen?></h4>
         <div class='diem'>
-          <p class='diemHocBa'><?php echo $dsKhoiXetTuyen[$khoiXetTuyen][0]?>: 10</p>
-          <p class='diemHocBa'><?php echo $dsKhoiXetTuyen[$khoiXetTuyen][1]?>: 10</p>
-          <p class='diemHocBa'><?php echo $dsKhoiXetTuyen[$khoiXetTuyen][2]?>: 10</p>
+          <p class='diemHocBa'><?php echo $dsKhoiXetTuyen[$thongTinHoSo["khoiXetTuyen"]][0]?>: <?php echo $thongTinHoSo["diemMon1"]?></p>
+          <p class='diemHocBa'><?php echo $dsKhoiXetTuyen[$thongTinHoSo["khoiXetTuyen"]][1]?>: <?php echo $thongTinHoSo["diemMon2"]?></p>
+          <p class='diemHocBa'><?php echo $dsKhoiXetTuyen[$thongTinHoSo["khoiXetTuyen"]][2]?>: <?php echo $thongTinHoSo["diemMon3"]?></p>
         </div>
+        <h5>Trạng Thái: <?php 
+          if($thongTinHoSo["trangThai"]==1) {
+            echo "<font color='#4BA665'>Đã duyệt</font>";
+          }elseif( $thongTinHoSo["trangThai"]== 0) {
+            echo "<font color='orange'>Chưa duyệt</font>";
+          }else {
+            echo "<font color='red'>Từ chối</font>";
+          }
+        ?></h5>
       </div>
       <div class='groupBtn'>
-        <button type='submit' class='btnHoSo btnSucess'>Duyệt</button>
-        <button type='submit' class='btnHoSo btnError'>Không Duyệt</button>
+        <button type='submit' name="btnDuyet" class='btnHoSo btnSucess' value="<?php echo $thongTinHoSo["id"]?>">Duyệt</button>
+        <button type='submit' name="btnTC" class='btnHoSo btnError' value="<?php echo $thongTinHoSo["id"]?>">Không Duyệt</button>
         
-        <?php if($_SESSION["roles"]==1) {echo "<button type='submit' class='btnHoSo btnDelete'>Xoá</button>";}?>
+        <?php if($_SESSION["roles"]==1) {echo "<button type='submit' name='btnXoa' class='btnHoSo btnDelete' value='".$thongTinHoSo["id"]."'>Xoá</button>";}?>
         <button type='submit' name="cancel" class='btnHoSo btnCancel'></button>
       </div>
     </div>
 </form>
-    <?php
-    if(isset($_POST["cancel"])) {
-      echo "<a href='them_ho_so.php' id = 'navigate'></a>";
-      echo "<script>";
-      echo "document.getElementById('navigate').click()";
-      echo "</script>";
-    }
-    ?>

@@ -5,14 +5,14 @@
     $_SESSION["roles"] = 1;
     header("Location: ../index.php");
   }
-  if (isset($_POST["tearch"])) {
+  if (isset($_POST["teacher"])) {
     $_SESSION["username"] = "tearch";
     $_SESSION["roles"] = 0;
-    header("Location: ../index.php");
+    header("Location: ../");
   }
-  if (isset($_POST["login"])) {
-    $_SESSION["username"] = "studen";
+  if (isset($_POST["btn_dang_nhap"])) {
+    $_SESSION["username"] = "TEACHER";
     $_SESSION["roles"] = -1;
-    header("Location: ../index.php");
+    $_SESSION["userId"] = 3;
+    header("Location: ../..");
   }
-  ?>

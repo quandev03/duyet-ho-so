@@ -28,7 +28,7 @@
       <button type="submit" name="btn_dang_nhap" class="btn btn-primary btn-block">Đăng Nhập</button>
     </form>
   </div>
-  
+  <?php include "../php/dang_nhap.php" ?>
 </body>
 
 </html>

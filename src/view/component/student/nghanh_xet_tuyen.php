@@ -56,7 +56,7 @@
   margin-top: 10px;
 }
 
-.nopNgay button {
+.nopNgay  .btn{
   padding: 10px 20px;
   border: none;
   width: 120px;
@@ -68,7 +68,7 @@
   font-size: 16px;
 }
 
-.nopNgay button:hover {
+.nopNgay .btn:hover {
   background-color: #45a049;
 }
 
@@ -113,7 +113,7 @@ function renderNganhXetTuyen($tenNganh, $dateStart, $dateEnd, $nopNgay) {
     echo "</div>";
     
     echo "<div class='nopNgay'>";
-    echo "<button class='text_render'>$nopNgay</button>"; 
+    echo "<button class='text_render btn' >$nopNgay</button>"; 
     echo "</div>";
     echo   "</div>";  
     echo "</div>"; 

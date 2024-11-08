@@ -1,4 +1,6 @@
 <?php
+
+
 function displayMessage($message, $type = 'success') {
   $types = ['success', 'warning', 'error'];
   if (!in_array($type, $types)) {
@@ -22,4 +24,3 @@ function displayMessage($message, $type = 'success') {
   </script>
   ";
 }
-?>
