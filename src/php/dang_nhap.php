@@ -21,9 +21,9 @@ if (isset($_POST["btn_dang_nhap"])) {
         $userData = $user[0];
 
         if (md5($password) === $userData['password']) {
-            $_SESSION['user_id'] = $userData['id'];
+            $_SESSION['userId'] = $userData['id'];
             $_SESSION['username'] = $username;
-            $_SESSION['role'] = $userData['roles'];
+            $_SESSION['roles'] = $userData['roles'];
             displayMessage("Mật khẩu trùng khớp", "success");
             header("Location: /duyet-ho-so/index.php");
             exit();
