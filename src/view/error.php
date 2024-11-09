@@ -508,7 +508,8 @@ animate();
 </script>
 <?php 
   if(isset($_POST['backHome'])) {
-    header("Location: ../index.php");
+    echo "<script>window.location.href = '/duyet-ho-so/';</script>";
+
     echo "ok";
     exit;
   }

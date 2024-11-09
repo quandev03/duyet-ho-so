@@ -10,7 +10,7 @@ class Repository {
     String $DATABASE,
     String $Table
   ){
-    $this->conn = mysqli_connect($HOST, $USERNAME, '', $DATABASE);
+    $this->conn = mysqli_connect($HOST, $USERNAME, $PASSWORD, $DATABASE);
     if (!$this->conn) {
       die("Connection failed: " . mysqli_connect_error());
     }
