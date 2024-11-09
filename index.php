@@ -82,7 +82,6 @@
     require "./src/php/them_ho_so.php";
     require "./src/php/data.php";
     require "./src/view/component/header.php";
-    // require "./src/php/them_ho_so_repo.php"; 
     require "./src/php/messenge.php";
    
     handleSession();
@@ -95,7 +94,7 @@
   <div class="body_page">
     <?php 
         include "./src/view/component/menu.php";
-        // checkRoles("./src/view/component/admin/them_ho_so.php", "./src/view/component/admin/them_ho_so.php", "");
+        checkRoles("./src/view/component/admin/them_ho_so.php", "./src/view/component/admin/them_ho_so.php", "./src/view/component/student/home_hs.php");
 
     
     ?>
