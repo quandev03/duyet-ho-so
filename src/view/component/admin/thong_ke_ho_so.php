@@ -40,9 +40,8 @@
     text-align: center;
   }
 </style>
-<?php require "../php/thong_ke_ho_so.php"; ?>
 <form class="body_page_render" method="post">
   <?php 
-    include "../../../php/thong_ke_ho_so_admin.php";
+    include "../php/thong_ke_ho_so_admin.php";
   ?>
 </form>

@@ -10,7 +10,7 @@ class Repository {
     String $DATABASE,
     String $Table
   ){
-    $this->conn = mysqli_connect($HOST, $USERNAME, '', $DATABASE);
+    $this->conn = mysqli_connect($HOST, $USERNAME, $PASSWORD, $DATABASE);
     if (!$this->conn) {
       die("Connection failed: " . mysqli_connect_error());
     }
@@ -47,10 +47,8 @@ class Repository {
       }
       $sql .= " WHERE " . implode(" AND ", $conditions);
     }
-
-    if ($sort) $sql .= " ORDER BY " . implode(", ", $sort);
-    if ($option) $sql .= " LIMIT " . implode(", ", $option);
-
+    $sort ? $sql .= " ORDER BY ".implode(", ", $sort) : "";
+    $option ? $sql .= " ".implode(", ", $option) : "";
     $result = $this->conn->query($sql);
 
     // Check if the query succeeded
@@ -66,25 +64,27 @@ class Repository {
     }
     return $data;
   }
-
-  public function insertOne(array $data = []): bool {
-    return $this->createOne($data);
+  public function insertOne( array $data = []): bool {
+    foreach ($data as $key => $value) {
+      $keys[] = $key;
+      $values[] = $value;
+    }
+    $sql = "INSERT INTO ".$this->table . " (".implode(", ", $keys).") VALUES (".implode(", ", $values).")";
+    return $this->conn->query($sql);
   }
 
-  public function updateOne(array $data = [], string $where): bool {
-    $set = [];
+  public function updateOne(array $data = [], string $where) {
     foreach ($data as $key => $value) {
       $set[] = "$key = '" . mysqli_real_escape_string($this->conn, $value) . "'";
     }
-    $sql = "UPDATE " . $this->table . " SET " . implode(", ", $set) . " WHERE id = " . mysqli_real_escape_string($this->conn, $where);
-
-    // Check if the query succeeded
-    if (!$this->conn->query($sql)) {
-      die("Error in updateOne: " . $this->conn->error);
+    $set = [];
+    foreach ($data as $key => $value) {
+      $set[] = "$key = '$value'";
     }
-
-    return true;
+    $sql = "UPDATE ".$this->table. " SET ".implode(", ", $set)." WHERE id =".$where;
+    return $this->conn->query($sql);
   }
+
 
   public function findOne($columns = "*", $where = []) {
     $sql = "SELECT " . (is_array($columns) ? implode(", ", $columns) : $columns) . " FROM " . $this->table;
@@ -102,18 +102,32 @@ class Repository {
     if (!$result) {
       die("Error in findOne: " . $this->conn->error);
     }
-
-    return $result->num_rows > 0 ? $result->fetch_assoc() : false;
+    return empty($data)? False: $data;
   }
 
-  public function deleteOne($id): bool {
-    $sql = "DELETE FROM " . $this->table . " WHERE id= " . mysqli_real_escape_string($this->conn, $id);
+  public function deleteOne($id) {
+    $sql = "DELETE FROM ".$this->table." WHERE id= ".$id;
+    return $this->conn->query($sql);
+  }
 
-    // Check if the query succeeded
-    if (!$this->conn->query($sql)) {
-      die("Error in deleteOne: " . $this->conn->error);
+  public function customFindLike($columns = "*", $where = [], $sort =[], $option = []) {
+    $sql = "SELECT ".(is_array($columns) ? implode(", ", $columns) : $columns)." FROM ".$this->table;
+    if (!empty($where)) {
+      $conditions = [];
+      foreach ($where as $column => $value) {
+        $conditions[] = "$column like '$value'";
+      }
+      $sql .= " WHERE " . implode(" AND ", $conditions);
     }
-
-    return true;
+      $sort ? $sql .= " ORDER BY ".implode(", ", $sort) : "";
+      $option ? $sql .= " ".implode(", ", $option) : "";
+      $result = $this->conn->query($sql);
+      $data = [];
+      if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+          $data[] = $row;
+        }
+      }
+      return $data;
   }
 }

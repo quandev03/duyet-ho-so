@@ -6,8 +6,8 @@
   <title>Nộp Hồ Sơ</title>
   <link rel="stylesheet" href="../CSS/main.css">
   <link rel="stylesheet" href="../CSS/them_ho_so.css">
-  <link rel="stylesheet" href="../CSS/header.css">
   <link rel="stylesheet" href="../CSS/messenge.css">
+  <!-- <link rel="stylesheet" href="../CSS/header.css"> -->
 </head>
 <body>
   <?php 

@@ -16,7 +16,7 @@
     require "component/header.php";
 
     handleSession();
-    // checkRolesAccess("1");
+    checkRolesAccess("-1");
   ?>
   <div>
     <?php header_page("Thông tin hồ sơ", '..');?>

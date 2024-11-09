@@ -15,6 +15,8 @@
     require "../php/them_ho_so.php";
     require "../php/data.php";
     require "component/header.php";
+    require "../php/ho_so_hoc_sinh_repo.php";
+    require "../php/messenge.php";
 
     session_start();
     handleSession();
