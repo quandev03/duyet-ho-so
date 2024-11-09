@@ -2,10 +2,10 @@
 require "../Database/Repository.php";
 require "../../config.php";
 session_start();
-$mysqli = new Repository($HOST, $USERNAME_BD, $PASSWORD_BD, $DATABASE_BD, 'nganh_xet_tuyen');
-$hoSoRepo = new Repository($HOST, $USERNAME_BD, $PASSWORD_BD, $DATABASE_BD,"ho_so_xet_tuyen");
-$accRepo = new Repository($HOST, $USERNAME_BD, $PASSWORD_BD, $DATABASE_BD,"account");
-$notification = new Repository( $HOST, $USERNAME_BD, $PASSWORD_BD, $DATABASE_BD, "notification");
+$mysqli = new Repository( 'nganh_xet_tuyen');
+$hoSoRepo = new Repository("ho_so_xet_tuyen");
+$accRepo = new Repository("account");
+$notification = new Repository( "notification");
 /** @var Repository $mysqli */
 /** @var Repository $hoSoRepo */
 /** @var Repository $accRepo */

@@ -4,13 +4,11 @@ class Repository {
   private $table;
 
   public function __construct(
-    String $HOST, 
-    String $USERNAME,
-    String $PASSWORD,
-    String $DATABASE,
+    
     String $Table
   ){
-    $this->conn = mysqli_connect($HOST, $USERNAME, $PASSWORD, $DATABASE);
+    require "../../config.php";
+    $this->conn = mysqli_connect($HOST, $USERNAME_BD, $PASSWORD_BD, $DATABASE_BD);
     if (!$this->conn) {
       die("Connection failed: " . mysqli_connect_error());
     }

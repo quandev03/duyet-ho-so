@@ -52,10 +52,17 @@ form {
   background-color: white;
   
   background-image: url(<?php 
-  if($_SESSION["REQUEST_URI"=="/duyet_ho_so/"]){
+  switch ($_SERVER["REQUEST_URI"]) {
+    case "/duyet_ho_so/":
       echo "src/storage/image_system/icons8-notification-30.png";
-    } 
-    else {echo "src/storage/image_system/icons8-notification-30.png";}
+      break;
+    case "/duyet-ho-so/index.php":
+      echo "src/storage/image_system/icons8-notification-30.png";
+      break;
+    default:
+      echo "../storage/image_system/icons8-notification-30.png";
+      break;
+  }
   ?>);
   /* background-image: url('../storage/image_system/icons8-notification-30.png'); */
   background-repeat: no-repeat;

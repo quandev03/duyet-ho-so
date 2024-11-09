@@ -82,22 +82,22 @@
     require "./src/php/them_ho_so.php";
     require "./src/php/data.php";
     require "./src/view/component/header.php";
-    // require "./src/php/them_ho_so_repo.php"; 
+    // include "./src/php/them_ho_so_repo.php"; 
     require "./src/php/messenge.php";
+    // require "./src/php/ho_so_hoc_sinh_repo.php";
+    require "./src/Database/Repository.php";
    
     handleSession();
   ?>
 
   <div>
-    <?php header_page("Xét tuyển", "./src/"); ?>
+    <?php header_page("Trang chủ", "./src/"); ?>
   </div>
   
   <div class="body_page">
     <?php 
         include "./src/view/component/menu.php";
-        // checkRoles("./src/view/component/admin/them_ho_so.php", "./src/view/component/admin/them_ho_so.php", "");
-
-    
+        checkRoles("./src/view/component/admin/them_ho_so.php", "./src/view/component/admin/them_ho_so.php", "src/view/component/student/home.php");
     ?>
   </div>
 </body>

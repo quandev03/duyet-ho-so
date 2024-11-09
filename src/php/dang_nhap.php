@@ -11,7 +11,7 @@ if (isset($_POST["btn_dang_nhap"])) {
     $username = $_POST["username"];
     $password = $_POST["password"];
 
-    $mysqli = new Repository($HOST, $USERNAME_BD, $PASSWORD_BD, $DATABASE_BD, "account");
+    $mysqli = new Repository("account");
 
     $username = trim($username);
     $user = $mysqli->findAll("*", ["username" => $username]);
