@@ -11,7 +11,7 @@ $notification = new Repository( "notification");
 /** @var Repository $accRepo */
 function layDuLieuNganhChoHocSinh() {
   global $mysqli;
-  $data = $mysqli->findAll('*');
+  $data = $mysqli->findAll('*', ["status"=> 1]);
   return $data;
 }
 function layDuLieuHoSo() {

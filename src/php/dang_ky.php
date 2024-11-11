@@ -10,7 +10,7 @@ if (isset($_POST["dangKy"])) {
   if (validateUsername($username)) {
     if(validatePassword($password)) {
       if ($password === $repassword) {
-          $mysqli = new Repository($HOST, $USERNAME_BD, $PASSWORD_BD, $DATABASE_BD, "account");
+          $mysqli = new Repository( "account");
           
           $dataInsert = [
             "username"=> "".$username."",
