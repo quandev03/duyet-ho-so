@@ -4,7 +4,6 @@ class Repository {
   private $table;
 
   public function __construct(
-    
     String $Table
   ){
     require "../../config.php";

@@ -1,6 +1,5 @@
 <?php
 require "../Database/Repository.php";
-require "../../config.php"; 
 session_start();
 $mysqli = new Repository( 'nganh_xet_tuyen');
 $hoSoRepo = new Repository("ho_so_xet_tuyen");

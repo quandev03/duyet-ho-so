@@ -104,10 +104,11 @@
 </style>
 
 <div class="body_page_render">
+  <?php include "../php/them_ho_so_hs.php"?>
   <form action="" method="post">
     <div class="listNganh">
       <?php 
-      include "../php/them_ho_so_hs.php";
+      // include "../php/them_ho_so_hs.php";
         $data = layDuLieuNganhChoHocSinh();
         foreach($data as $key => $value) {
           $khoiXetTuyen = explode(" ", $value['khoiXetTuyen']);
@@ -118,7 +119,5 @@
       ?>
     </div>
   </form>
-    <?php 
-    ?>
 
 </div>
