@@ -7,7 +7,7 @@
   <title>Đăng nhập</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../CSS/dang_nhap.css">
-  <link rel="stylesheet" href="../CSS/messenge.css">
+  <!-- <link rel="stylesheet" href="../CSS/messenge.css"> -->
 </head>
 
 <body>
