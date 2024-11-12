@@ -23,7 +23,7 @@ if (!$student) {
     exit;
 }
 
-$hasHocBa = file_exists($student['hocba']);
+$hasHocBa = file_exists(filename: $student['hocba']);
 $khoiXetTuyen = explode(',', $student['exam_groups']);  // Ví dụ: 'A01,B00'
 $diemXetTuyen = explode(',', $student['exam_scores']);  // Ví dụ: '8.0,7.5,9.0'
 $nganh = $student['study_area'];  // Ngành học

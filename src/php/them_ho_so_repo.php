@@ -54,7 +54,7 @@ function duyetHoSo($idHoSo) {
   $dataNofification = [
     "title"=>"'Hồ sơ được duyệt'", 
     "sent_to"=> $infoHoSo["idHocSinh"], 
-    "messenge"=> "'Hồ sơ của bạn đã bị ".$messenge." được duyệt'"
+    "messenge"=> "'Hồ sơ của bạn đã được ".$messenge." được duyệt'"
   ];
   if($roles==1 && $infoHoSo["trangThai"] == 1){
     displayMessage("Hồ sơ đã được duyệt", "warning");
@@ -112,14 +112,15 @@ function xoaHoSoHS($idHoSo) {
   global $hoSoRepo;
   global $notification;
   $idUser = $_SESSION["userId"];
-  $data = $hoSoRepo->findAll("idHocSinh", ["id"=> $idHoSo])[0]["idHocSinh"];
+  $data = $hoSoRepo->findAll(["idHocSinh", "hoc_ba"], ["id"=> $idHoSo])[0];
   $messenge =$idUser==1?"ADMIN":"Giáo Viên";
   $dataNofification = [
     "title"=>"'Hồ sơ Xoá'", 
-    "sent_to"=> $data, 
+    "sent_to"=> $data["idHocSinh"], 
     "messenge"=> "'Hồ sơ của bạn đã bị ".$messenge." xoá'"
   ];
-
+  $url = "../storage/file_upload/hoc_ba/".$data["hoc_ba"];
+  unlink($url);
   $hoSoRepo->deleteOne($idHoSo);
   $notification->insertOne($dataNofification);
   displayMessage("Xóa hồ sơ thành công", "success");

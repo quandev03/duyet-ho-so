@@ -1,7 +1,7 @@
 <?php
 require "../Database/Repository.php";
 require "../../config.php";
-$notification = new Repository( $HOST, $USERNAME_BD, $PASSWORD_BD, $DATABASE_BD, "notification");
+$notification = new Repository( "notification");
 
 function getDataNotification(){
   global $notification;

@@ -54,7 +54,25 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 670%;
+  height: 670px;
+ }
+ .fileUpload {
+  width: 0px;
+  height: 50px;
+  border-radius: 20px;
+  padding: 10px;
+  color: #4BA665;
+
+ }
+
+ .btnNopHoSo {
+  width: 200px;
+  height: 50px;
+  border-radius: 20px;
+  position: relative;
+  left: 35%;
+  background-color: #4BA665;
+  color: white;
  }
 </style>
 <?php 
@@ -64,7 +82,7 @@
     $khoiXetTuyen = explode(' ', $infoNganh['khoiXetTuyen']);
   ?>
 <div class="body_page_render">
-<form method="post" class="body_page_form">
+<form method="post" class="body_page_form" enctype="multipart/form-data">
   <div>
   <h2>Chuyên Ngành</h2>
   <select name="chuyenNhanh" id="" class="chuyenNhanh" >
@@ -93,6 +111,7 @@
     <label for="mon3"><?php if(isset($_POST['btnSelect']) || isset($_POST['btnNopHoSo'])) { echo $dsKhoiXetTuyen[$_POST['khoi']][2];}?></label> 
     <input type="number" name="mon3" id="" placeholder="Nhập điểm" max="10" min="0" value="0" class="input_diem">
   </div>
+  <input type="file" name="fileUpload" accept="applicaion/pdf" />
   <button class="btnNopHoSo" name="btnNopHoSo">Nộp</button>
   <?php include "../php/nop_ho_so.php" ?>
 </form>

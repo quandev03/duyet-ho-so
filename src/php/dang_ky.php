@@ -11,11 +11,11 @@ if (isset($_POST["dangKy"])) {
     if(validatePassword($password)) {
       if ($password === $repassword) {
           $mysqli = new Repository( "account");
-          
+          $pass = md5($password);
           $dataInsert = [
-            "username"=> "".$username."",
-            "password"=> "".md5($password)."",
-            "full_name"=> "".$fullname."",
+            "username"=> "'$username'",
+            "password"=> "'$pass'",
+            "full_name"=> "'$fullname'",
             "roles"=> $role
           ];
           $checkExist =  $mysqli->findAll("*", ["username" => $username]);
@@ -24,6 +24,7 @@ if (isset($_POST["dangKy"])) {
           }else {
           $mysqli->insertOne($dataInsert);
           displayMessage("Đăng ký thành công", "success");
+          header("Location: dang_nhap.php");
           }
         }
       }else {

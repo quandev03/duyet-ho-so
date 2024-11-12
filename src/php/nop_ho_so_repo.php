@@ -18,8 +18,8 @@ function nopHoSo($data, $idUser){
     "diemMon2"=> $data["diemMon2"],
     "diemMon3"=> $data["diemMon3"],
     "nganhXetTuyen"=> $data["nganhXetTuyen"],
+    "hoc_ba"=> "'".$data["hoc_ba"]."'"
   ];
-  // return $dataInsert;
   return $hoSoRepo->insertOne($dataInsert);
 }
 function checkDaNopHoSo($idUser, $idNganh){

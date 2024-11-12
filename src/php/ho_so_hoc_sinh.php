@@ -1,5 +1,6 @@
 <?php
 $idHoSo = $_GET["id"];
+echo "ACs";
 $thongTinHoSo= layThongTinHoSo($idHoSo);
 if(isset($_POST["cancel"])) {
   echo "<a href='them_ho_so.php' id = 'navigate'></a>";
@@ -9,8 +10,9 @@ if(isset($_POST["cancel"])) {
 }
 
 if(isset($_POST["btnXemHocBa"])) {
-  if ($thongTinHoSo["hocBa"]) {
-    $url = "../storage/file_upload/hoc_ba/" . $thongTinHoSo["hocBa"]; 
+  if ($thongTinHoSo["hoc_ba"]) {
+    $url = "../storage/file_upload/hoc_ba/" . $thongTinHoSo["hoc_ba"]; 
+    // echo $url;
     echo "<a href='" . $url . "' target='_blank' id='navigate_ho_ba'></a>"; 
     echo "<script>";
     echo "document.getElementById('navigate_ho_ba').click()";

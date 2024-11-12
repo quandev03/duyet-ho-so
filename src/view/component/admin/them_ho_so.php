@@ -67,8 +67,13 @@
 <form method="post" class="body_page_render">
   <?php 
     include ("../php/them_ho_so_admin.php");
-    foreach($data as $key => $value) {
-      renderHoSoHS($value["id"], layTenHocSinh($value["idHocSinh"]), layTenChuyenNganh($value["nganhXetTuyen"]),$value["createAt"], nguoiDuyetHoSo($value["nguoiDuyet"]), $value["trangThai"], $value["khoiXetTuyen"], [$value["diemMon1"], $value["diemMon2"], $value["diemMon3"]]);
+    if($data){
+      foreach($data as $key => $value) {
+        renderHoSoHS($value["id"], layTenHocSinh($value["idHocSinh"]), layTenChuyenNganh($value["nganhXetTuyen"]),$value["createAt"], nguoiDuyetHoSo($value["nguoiDuyet"]), $value["trangThai"], $value["khoiXetTuyen"], [$value["diemMon1"], $value["diemMon2"], $value["diemMon3"]]);
+      }
+    }
+    else{
+      echo "<h1>Không có hồ sơ nào</h1>";
     }
 
     

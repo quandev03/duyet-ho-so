@@ -1,10 +1,10 @@
 <?php
 require "../Database/Repository.php";
 require "../../config.php";
-$mysqli = new Repository($HOST, $USERNAME_BD, $PASSWORD_BD, $DATABASE_BD, 'nganh_xet_tuyen');
-$hoSoRepo = new Repository($HOST, $USERNAME_BD, $PASSWORD_BD, $DATABASE_BD,"ho_so_xet_tuyen");
-$accRepo = new Repository($HOST, $USERNAME_BD, $PASSWORD_BD, $DATABASE_BD,"account");
-$notification = new Repository($HOST, $USERNAME_BD, $PASSWORD_BD, $DATABASE_BD, "notification");
+$mysqli = new Repository('nganh_xet_tuyen');
+$hoSoRepo = new Repository("ho_so_xet_tuyen");
+$accRepo = new Repository("account");
+$notification = new Repository("notification");
 /** @var Repository $mysqli */
 /** @var Repository $hoSoRepo */
 /** @var Repository $hoSoaccRepoRepo */
@@ -12,10 +12,10 @@ function layThongTinHoSo($id){
   global $hoSoRepo;
   global $accRepo;
   global $mysqli;
-  // return $hoSoRepo->findAll(["idHocSinh"],["id"=> $id]);
+  
   $infoHoSo = $hoSoRepo->findAll("*",["id"=> $id])[0];
-  // return $infoHoSo;
-  $infoAccount = $accRepo->findAll(["full_name", "hocBa"], ["id"=> $infoHoSo["idHocSinh"]])[0];
+  $infoAccount = $accRepo->findAll(["full_name"], ["id"=> $infoHoSo["idHocSinh"]])[0];
+  // return $infoAccount;
   return $mysqli->findAll(["tenNganhXetTuyen"], ["id"=> $infoHoSo["nganhXetTuyen"]])[0]+ $infoHoSo + $infoAccount;
 }
 function duyetHoSo($idHoSo) {
@@ -90,16 +90,17 @@ function xoaHoSoHS($idHoSo) {
   global $hoSoRepo;
   global $notification;
   $idUser = $_SESSION["idUser"];
-  $data = $hoSoRepo->findAll("idHocSinh", ["id"=> $idHoSo])[0]["idHocSinh"];
+  $data = $hoSoRepo->findAll(["idHocSinh", "hoc_ba"], ["id"=> $idHoSo])[0];
   $messenge =$idUser==1?"ADMIN":"Giáo Viên";
   $dataNofification = [
     "title"=>"'Hồ sơ Xoá'", 
-    "sent_to"=> $data, 
+    "sent_to"=> $data["idHocSinh"], 
     "messenge"=> "'Hồ sơ của bạn đã bị ".$messenge." xoá'"
   ];
-
+  $url = "../storage/file_upload/hoc_ba/".$data["hoc_ba"];
+  unlink($url);
   $hoSoRepo->deleteOne($idHoSo);
   $notification->insertOne($dataNofification);
   displayMessage("Xóa hồ sơ thành công", "success");
-  return reloadPage(3001);
+  return navigate("them_ho_so.php", 3001);
 }

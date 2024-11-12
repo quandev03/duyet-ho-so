@@ -70,29 +70,29 @@ justify-content: space-around;
 </style>
 <?php 
   $khoiXetTuyen = "A00";
-?>
-  <?php include "../php/ho_so_hoc_sinh.php"; ?>
+  ?>
+   <?php include "../php/ho_so_hoc_sinh.php"; ?> 
 <form class='body_page_render' method="post">
-    <div class="display">
-      <div class='infoHoSo'>
-        <h3 class='text'>ID: <?php echo $thongTinHoSo["id"]?></h3>
-        <h2 class='text'>Họ tên: <?php echo $thongTinHoSo["full_name"]?></h2>
+  <div class="display">
+    <div class='infoHoSo'>
+      <h3 class='text'>ID: <?php echo $thongTinHoSo["id"]?></h3>
+      <h2 class='text'>Họ tên: <?php echo $thongTinHoSo["full_name"]?></h2>
+    </div>
+    <div class='infoChuyenNgạnh'>
+      <div class="chuyenNganh">
+        <h3 class='text'>Ngành: <?php echo $thongTinHoSo["tenNganhXetTuyen"]?></h3>
+        <p class='text'>Ngày đăng ký: <?php echo $thongTinHoSo["createAt"]?></p>
       </div>
-      <div class='infoChuyenNgạnh'>
-        <div class="chuyenNganh">
-          <h3 class='text'>Ngành: <?php echo $thongTinHoSo["tenNganhXetTuyen"]?></h3>
-          <p class='text'>Ngày đăng ký: <?php echo $thongTinHoSo["createAt"]?></p>
-        </div>
-        <button type='submit' class="btnXemHocBa" name="btnXemHocBa">Xem học bạ</button>
+      <button type='submit' class="btnXemHocBa" name="btnXemHocBa">Xem học bạ</button>
+    </div>
+    <div class='xetTuyen'>
+      <h4>Khối: <?php echo $khoiXetTuyen?></h4>
+      <div class='diem'>
+        <p class='diemHocBa'><?php echo $dsKhoiXetTuyen[$thongTinHoSo["khoiXetTuyen"]][0]?>: <?php echo $thongTinHoSo["diemMon1"]?></p>
+        <p class='diemHocBa'><?php echo $dsKhoiXetTuyen[$thongTinHoSo["khoiXetTuyen"]][1]?>: <?php echo $thongTinHoSo["diemMon2"]?></p>
+        <p class='diemHocBa'><?php echo $dsKhoiXetTuyen[$thongTinHoSo["khoiXetTuyen"]][2]?>: <?php echo $thongTinHoSo["diemMon3"]?></p>
       </div>
-      <div class='xetTuyen'>
-        <h4>Khối: <?php echo $khoiXetTuyen?></h4>
-        <div class='diem'>
-          <p class='diemHocBa'><?php echo $dsKhoiXetTuyen[$thongTinHoSo["khoiXetTuyen"]][0]?>: <?php echo $thongTinHoSo["diemMon1"]?></p>
-          <p class='diemHocBa'><?php echo $dsKhoiXetTuyen[$thongTinHoSo["khoiXetTuyen"]][1]?>: <?php echo $thongTinHoSo["diemMon2"]?></p>
-          <p class='diemHocBa'><?php echo $dsKhoiXetTuyen[$thongTinHoSo["khoiXetTuyen"]][2]?>: <?php echo $thongTinHoSo["diemMon3"]?></p>
-        </div>
-        <h5>Trạng Thái: <?php 
+      <h5>Trạng Thái: <?php 
           if($thongTinHoSo["trangThai"]==1) {
             echo "<font color='#4BA665'>Đã duyệt</font>";
           }elseif( $thongTinHoSo["trangThai"]== 0) {
@@ -100,7 +100,7 @@ justify-content: space-around;
           }else {
             echo "<font color='red'>Từ chối</font>";
           }
-        ?></h5>
+          ?></h5>
       </div>
       <div class='groupBtn'>
         <button type='submit' name="btnDuyet" class='btnHoSo btnSucess' value="<?php echo $thongTinHoSo["id"]?>">Duyệt</button>
