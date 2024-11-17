@@ -4,71 +4,68 @@ require "../Database/Repository.php";
 session_start();
 
 $nganhRepo = new Repository('nganh_xet_tuyen');
+$accRepo = new Repository("account");
 
 // Kiểm tra quyền admin
 $isAdmin = isset($_SESSION['roles']) && $_SESSION['roles'] === 1;
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $action = $_POST['action'] ?? '';
-  $idNganh = $_POST['idNganh'] ?? '';
 
-  // Kết nối cơ sở dữ liệu
-  $servername = "localhost";
-  $username = "root";
-  $password = "";
-  $dbname = "duyet_ho_so";
+if(isset($_POST['btn_status'])) {
+  $id = $_POST['btn_status'];
+  $custom = $nganhRepo->findAll(["status"], ["id" => $id]);
+  $preStatus = $custom[0]["status"];
+  $status = $preStatus? 0 : 1;
+  $nganhRepo->updateOne(["status" => $status], $id);
 
-  $conn = new mysqli($servername, $username, $password, $dbname);
-
-  if ($conn->connect_error) {
-    die("Kết nối thất bại: " . $conn->connect_error);
-  }
-
-  if ($action === 'togleStatgus' && $idNganh) {
-    // Đổi trạng thái ngành học
-    $currentStatus = $nganhRepo->findOne(['status'], ['id' => $idNganh])['status'];
-    $newStatus = $currentStatus ? 0 : 1;
-    $nganhRepo->updateOne(['status' => $newStatus], $idNganh);
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit;
-  } elseif ($action === 'edit' && $idNganh) {
-    header("Location: sua_nganh.php?id={$idNganh}");
-    exit;
-  } 
 }
 
 $data = $nganhRepo->findAll("*");
+function nguoiDuyet(string $id): string {
+  if ($id=='_') return 'Chưa có người đươc duyệt';
+  global $accRepo;
+  $id = trim($id, '_');
+  $listId = explode("_", $id);
+  $nguoiDuyet = array_map(function($id) use ($accRepo) {
+    return tenNguoiDuyet($id, $accRepo);
+  }, $listId);
+  $result = implode(", ", $nguoiDuyet);
+  return $result;
+}
 
-function renderNganh($nganh, $isAdmin)
+function tenNguoiDuyet($id, $accRepo){
+  $result = $accRepo->findAll(["full_name"], ["id" => $id]);
+  return $result[0]["full_name"] ?? 'unknown';
+}
+function renderNganh($nganh)
 {
-  $id = htmlspecialchars($nganh['id']);
-  $tenNganh = htmlspecialchars($nganh['tenNganhXetTuyen']);
-  $khoiXetTuyen = htmlspecialchars($nganh['khoiXetTuyen']);
-  $ngayBatDau = htmlspecialchars($nganh['dateStart']);
-  $ngayKetThuc = htmlspecialchars($nganh['dateEnd']);
-  $nguoiDuyet = htmlspecialchars($nganh['nguoiDuyet']);
-  $status = $nganh['status'] ? "Hiện" : "Ẩn";
+    // Escape data for safe HTML output
+    $id = htmlspecialchars($nganh['id']);
+    $tenNganh = htmlspecialchars($nganh['tenNganhXetTuyen']);
+    $khoiXetTuyen = htmlspecialchars($nganh['khoiXetTuyen']);
+    $ngayBatDau = htmlspecialchars($nganh['dateStart']);
+    $ngayKetThuc = htmlspecialchars($nganh['dateEnd']);
+    $nguoiDuyet = nguoiDuyet($nganh['nguoiDuyet']);
+    // $nguoiDuyet = $nganh['nguoiDuyet'];
+    $status = isset($nganh['status']) && $nganh['status'] ? "Hiện" : "Ẩn";
 
-  echo "
-    <div class='nganh' id='nganh_{$id}'>
+    echo "
+    <div class='nganh'>
         <h3>{$tenNganh}</h3>
         <p>Khối xét tuyển: {$khoiXetTuyen}</p>
         <p>Ngày bắt đầu: {$ngayBatDau}</p>
         <p>Ngày kết thúc: {$ngayKetThuc}</p>
         <p>Người được duyệt: {$nguoiDuyet}</p>
-
         <form method='post'>
             <input type='hidden' name='idNganh' value='{$id}' />
-            <button type='submit' name='action' value='toggleStatus'>{$status}</button>
+            <button type='submit' name='btn_status' value='$id'>{$status}</button>
             <button type='submit' name='action' value='edit'>Sửa</button>";
+            
+    // Only show delete button for admins
+    if ($_SESSION['roles'] === 1) {
+        echo "<button type='submit' name='action' value='delete'>Xóa ngành</button>";
+    }
 
-
-  // Chỉ hiển thị nút xóa nếu là admin
-  if ($isAdmin) {
-    echo "<button type='submit' name='action' value='delete'>Xóa ngành</button>";
-  }
-
-  echo "</form></div>";
+    echo "</div>";
 }
 
 ?>
@@ -127,11 +124,11 @@ function renderNganh($nganh, $isAdmin)
 
 <body>
   <br>
-  <div class="listNganh">
+  <form class="listNganh" method="post">
     <?php foreach ($data as $nganh) {
-      renderNganh($nganh, $isAdmin);
+      renderNganh($nganh);
     } ?>
-  </div>
+  </form>
 </body>
 
 </html>
