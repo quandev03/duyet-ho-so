@@ -95,8 +95,8 @@
   
   <div class="body_page">
     <?php 
-        include "./src/view/component/menu.php";
-        checkRoles("./src/view/component/admin/them_ho_so.php", "./src/view/component/admin/them_ho_so.php", "./src/view/component/student/home_hs.php");
+        if($_SESSION["roles"]!=1 && $_SESSION["roles"]!=0 ) include "./src/view/component/menu.php";
+        checkRoles("./src/view/component/admin/home_admin.php", "./src/view/component/teacher/home_gv.php", "./src/view/component/student/home_hs.php");
 
     
     ?>

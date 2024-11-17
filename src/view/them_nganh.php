@@ -16,12 +16,12 @@
     // checkRolesAccess("1");
   ?>
   <div>
-    <?php header_page("Thông tin hồ sơ", '..');?>
+    <?php header_page("Thêm ngành xét tuyển", '..');?>
   </div>
   <div class="body_page">
     <?php 
-      include "component/menu.php";
-      include "../view/component/admin/them_nghanh.php";
+      include "component/menu.php";  
+      include "component/admin/them_nganh.php";
     ?>
   </div>
 
