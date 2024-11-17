@@ -132,13 +132,8 @@
                     <button type="submit" name="upload_avatar" class="upload-button">Tải lên Avatar</button>
                 </form>
             </div>
-            <div class="upload-section">
-                <h2>Upload Học Bạ</h2>
-                <form action="profile.php" method="post" enctype="multipart/form-data">
-                    <input type="file" name="hocba" required class="upload-input">
-                    <button type="submit" name="upload_hocba" class="upload-button">Tải lên Học Bạ</button>
-                </form>
-            </div>
+            <!--  -->
+            <!-- </div> -->
 
         <?php else: ?>
             <p>Vui lòng đăng nhập để xem thông tin cá nhân.</p>

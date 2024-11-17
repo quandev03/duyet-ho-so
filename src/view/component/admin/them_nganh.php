@@ -1,151 +1,201 @@
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f9;
-        margin: 0;
-        padding: 20px;
-        min-height: 100vh;
-        margin-top: 6%;
-
-    }
-
-    .form-container {
-        padding: 20px;
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        max-width: 800px;
-        margin-left: 35%;
-        margin-top: -40%;
-        /* margin: auto; */
-    }
-
-    .export-btn {
-        background-color: #0B3051;
-        color: white;
-        border: none;
-        padding: 8px 12px;
-        margin-left: 8px;
-        border-radius: 5px;
-        cursor: pointer;
-
-    }
-
-    .nganh-form {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
-    }
-
-    .form-group {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .form-group label {
-        margin-bottom: 5px;
-        color: #0B3051;
-        font-weight: bold;
-    }
-
-    .form-group input,
-    .form-group select {
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    .form-actions {
-        grid-column: span 2;
-        display: flex;
-        gap: 10px;
-        width: 50%;
-    }
-
-    .create-btn {
-        background-color: #28a745;
-        color: white;
-        border: none;
-        padding: 8px 20px;
-        border-radius: 20px;
-        cursor: pointer;
-    }
-
-    .cancel-btn {
-        background-color: #e0e0e0;
-        color: #333;
-        border: none;
-        padding: 8px 20px;
-        border-radius: 20px;
-        cursor: pointer;
-    }
-</style>
-</head>
-<div>
-    <?php
-    // Define sample values for the parameters
-    $chuyenNghanh = ["IT", "Math", "Physics"];
-    $khoi = ["A", "B", "C"];
-    $giaoVien = "Nguyen Van A";
-    $startDate = "2024-01-01";
-    $endDate = "2024-12-31";
-
-    // Render the form
-    rederThemNghanh($chuyenNghanh, $khoi, $giaoVien, $startDate, $endDate);
-    ?>
-
-</div>
-
-</html>
-
 <?php
-function rederThemNghanh($chuyenNghanh, $khoi, $giaoVien, $startDate, $endDate)
-{
-    echo "
-    <div class='form-container'>
-        <div class='header'>
-            <button class='export-btn'>Thêm nghành mới</button>
-        </div>
-        <form class='nganh-form'>
-            <div class='form-group'>
-                <label for='chuyenNghanh'>Chuyên ngành</label>
-                <select id='chuyenNghanh' name='chuyenNghanh'>
-                    <option value=''>Chọn chuyên ngành</option>";
-    foreach ($chuyenNghanh as $option) {
-        echo "<option value='$option'>$option</option>";
-    }
-    echo "
-                </select>
-            </div>
-            <div class='form-group'>
-                <label for='khoi'>Khối</label>
-                <select id='khoi' name='khoi'>
-                    <option value=''>Chọn khối</option>";
-    foreach ($khoi as $option) {
-        echo "<option value='$option'>$option</option>";
-    }
-    echo "
-                </select>
-            </div>
-            <div class='form-group'>
-                <label for='giaoVien'>Giáo viên</label>
-                <input type='text' id='giaoVien' name='giaoVien' placeholder='Nhập tên giáo viên' value='$giaoVien'>
-            </div>
-            <div class='form-group'>
-                <label for='startDate'>Start Date</label>
-                <input type='date' id='startDate' name='startDate' value='$startDate'>
-            </div>
-            <div class='form-group'>
-                <label for='endDate'>End Date</label>
-                <input type='date' id='endDate' name='endDate' value='$endDate'>
-            </div>
-            <div class='form-actions'>
-                <button type='submit' class='create-btn'>Tạo</button>
-                <button type='button' class='cancel-btn'>Hủy</button>
-            </div>
-        </form>
-    </div>
-    ";
+
+// Kết nối cơ sở dữ liệu
+$servername = "localhost";
+$username = "root"; 
+$password = "";
+$dbname = "duyet_ho_so";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    die("Kết nối thất bại: " . $conn->connect_error);
 }
+
+// Xử lý form khi người dùng nhấn nút Lưu
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $tenNganh = $_POST['tenNganh'];
+    $khoi = $_POST['khoi'];
+    $ngayBatDau = $_POST['ngayBatDau'];
+    $ngayKetThuc = $_POST['ngayKetThuc'];
+    $giaoVienDuyet = isset($_POST['giaoVienDuyet']) ? $_POST['giaoVienDuyet'] : [];
+    print_r($giaoVienDuyet);
+    $nguoi_duyet = "_".implode("_", $giaoVienDuyet) ."_";
+    echo $nguoi_duyet;
+    // Thêm ngành vào bảng nganh_xet_tuyen
+    $sql = "INSERT INTO nganh_xet_tuyen (tenNganhXetTuyen, khoiXetTuyen,nguoiDuyet, dateStart, dateEnd) 
+            VALUES ('$tenNganh', '$khoi','$nguoi_duyet', '$ngayBatDau', '$ngayKetThuc')";
+
+    if ($conn->query($sql) === TRUE) {
+        $nganhId = $conn->insert_id;
+
+        // Thêm giáo viên duyệt vào bảng giao_vien_duyet
+        if (!empty($giaoVienDuyet)) {
+            foreach ($giaoVienDuyet as $giaoVienId) {
+                $sqlGV = "INSERT INTO giao_vien_duyet (nganhId, giaoVienId) 
+                          VALUES ($nganhId, $giaoVienId)";
+                $conn->query($sqlGV);
+            }
+        }
+
+        echo "<script>alert('Ngành đã được thêm thành công!');</script>";
+        // displayMessage
+    } else {
+        echo "Lỗi: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+// Lấy danh sách giáo viên từ cơ sở dữ liệu
+$sql = "SELECT id, full_name FROM account WHERE roles = 0";
+$result = $conn->query($sql);
+
+$teachers = [];
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $teachers[] = $row;
+    }
+}
+
+$conn->close();
 ?>
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm Ngành Xét Tuyển</title>
+    <style>
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            display: block;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        dialog {
+            width: 700px;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], input[type="date"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .button[type="submit"], button[type="button"] {
+            padding: 10px 20px;
+            border: none;
+            width: 120px;
+            height: 40px;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .button[type="button"] {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .button[type="button"]:hover {
+            background-color: #e53935;
+        }
+
+        .themNganh{
+            height: 100px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Quản lý ngành xét tuyển</h2>
+    <button class="button themNganh" onclick="openDialog()">Thêm Ngành Xét Tuyển</button>
+    
+    <dialog id="dialog">
+        <form id="nganhForm" action="" method="POST">
+            <label for="tenNganh">Tên Ngành:</label>
+            <input type="text" id="tenNganh" name="tenNganh" required><br><br>
+
+            <label for="khoi">Khối:</label>
+            <input type="text" id="khoi" name="khoi" required><br><br>
+
+            <label for="ngayBatDau">Ngày Bắt Đầu:</label>
+            <input type="date" id="ngayBatDau" name="ngayBatDau" required><br><br>
+
+            <label for="ngayKetThuc">Ngày Kết Thúc:</label>
+            <input type="date" id="ngayKetThuc" name="ngayKetThuc" required><br><br>
+
+            <label>Giáo Viên Duyệt:</label><br>
+            <?php
+            if (!empty($teachers)) {
+                foreach ($teachers as $teacher) {
+                    echo '<input type="checkbox" name="giaoVienDuyet[]" value="' . $teacher['id'] . '"> ' . $teacher['full_name'] . '<br>';
+                }
+            } else {
+                echo "Không có giáo viên nào.";
+            }
+            ?>
+            <br>
+            <button class="button" type="submit">Lưu</button>
+            <button class="button" type="button" onclick="closeDialog()">Đóng</button>
+        </form>
+    </dialog>
+
+    <script>
+        function openDialog() {
+            const dialog = document.getElementById("dialog");
+            if (typeof dialog.showModal === "function") {
+                dialog.showModal();  
+            } else {
+                alert("Trình duyệt của bạn không hỗ trợ dialog, vui lòng cập nhật trình duyệt.");
+            }
+        }
+
+        function closeDialog() {
+            const dialog = document.getElementById("dialog");
+            if (typeof dialog.close === "function") {
+                dialog.close();  
+            }
+        }
+    </script>
+</body>
+</html>
