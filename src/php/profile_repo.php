@@ -57,7 +57,7 @@ function capNhatThongTinProfile($idHocSinh, $newData) {
 
 function layThongTinProfile($idHocSinh) {
     global $accRepo;
-    $data = $accRepo->findAll(["id", "username", "full_name", "roles", "avatar", "hocba"], ["id" => $idHocSinh]);
+    $data = $accRepo->findAll(["id", "username", "full_name", "roles", "avatar"], ["id" => $idHocSinh]);
     return $data ? $data[0] : null;
 }
 
