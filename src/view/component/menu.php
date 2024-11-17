@@ -31,17 +31,24 @@
   <form action="" method="post">
     <button type="submit" class="btn_navigate" name="menu" value="home">Trang Chủ</button>
     <hr>
-    <button type="submit" class="btn_navigate" name="menu" value="themHoSo">Thêm hồ sơ</button>
+    
     
 
     <?php 
       if($_SESSION['roles'] == 1){
+        echo "<button type='submit' class='btn_navigate' name='menu' value='themHoSo'>Duyệt hồ sơ</button>";
         echo "<hr>";
         echo "<button type='submit' class='btn_navigate' name='menu' value='thongKe'>Thống kê</button>";
         echo "<hr>";
-        echo "<button type='submit' class='btn_navigate' name='menu' value='phanQuyen'>Phân quyền</button>";
+        echo "<button type='submit' class='btn_navigate' name='menu' value='quanLyNganh'>Quản lý các ngành</button>";
+        echo "<hr>";
+        echo "<button type='submit' class='btn_navigate' name='menu' value='themNganh'>Thêm ngành</button>";
+
+      }else if($_SESSION['roles'] == 0){
+        echo "<button type='submit' class='btn_navigate' name='menu' value='themHoSo'>Duyệt hồ sơ</button>";
       }
       else{
+        echo "<button type='submit' class='btn_navigate' name='menu' value='themHoSo'>Nộp hồ sơ</button>";
         echo "<hr>";
         echo "<button type='submit' class='btn_navigate' name='menu' value='profile'>Profile</button>";
       }
@@ -50,7 +57,7 @@
     <hr>
     <button type="submit" class="btn_navigate" name="menu" value="dangXuat">Đăng xuất</button>
 
-
+ 
   </form>
   <?php 
     if(isset($_POST['menu'])) {
@@ -105,6 +112,28 @@
             header("Location: thong_ke_ho_so.php");
             break;
           }
+          case 'themNganh':
+            if ($uri =="/duyet-ho-so/"){
+              echo "<script>window.location.href = 'src/view/them_nganh.php';</script>";
+              break;
+            }elseif ($uri == "/duyet-ho-so/index.php"){
+              echo "<script>window.location.href = 'src/view/them_nganh.php';</script>";
+              break;
+            }else{
+              header("Location: them_nganh.php");
+              break;
+            }
+            case 'quanLyNganh':
+              if ($uri =="/duyet-ho-so/"){
+                echo "<script>window.location.href = 'src/view/quan_ly_nganh.php';</script>";
+                break;
+              }elseif ($uri == "/duyet-ho-so/index.php"){
+                echo "<script>window.location.href = 'src/view/quan_ly_nganh.php';</script>";
+                break;
+              }else{
+                header("Location: quan_ly_nganh.php");
+                break;
+              }
           case "dangXuat":
             session_destroy();
             if ($uri =="/duyet-ho-so/"){

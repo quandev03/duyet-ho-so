@@ -70,17 +70,17 @@ class Repository {
     return $this->conn->query($sql);
   }
 
-  public function updateOne(array $data = [], string $where) {
-    foreach ($data as $key => $value) {
-      $set[] = "$key = '" . mysqli_real_escape_string($this->conn, $value) . "'";
+    public function updateOne(array $data = [], string $where) {
+      foreach ($data as $key => $value) {
+        $set[] = "$key = '" . mysqli_real_escape_string($this->conn, $value) . "'";
+      }
+      $set = [];
+      foreach ($data as $key => $value) {
+        $set[] = "$key = '$value'";
+      }
+      $sql = "UPDATE ".$this->table. " SET ".implode(", ", $set)." WHERE id =".$where;
+      return $this->conn->query($sql);
     }
-    $set = [];
-    foreach ($data as $key => $value) {
-      $set[] = "$key = '$value'";
-    }
-    $sql = "UPDATE ".$this->table. " SET ".implode(", ", $set)." WHERE id =".$where;
-    return $this->conn->query($sql);
-  }
 
 
   public function findOne($columns = "*", $where = []) {
@@ -128,3 +128,4 @@ class Repository {
       return $data;
   }
 }
+
