@@ -14,8 +14,6 @@
     require "../php/handle.php";
     require "../php/data.php";
     require "component/header.php";
-    require "../php/profile_hs.php";
-    require "../php/profile_repo.php";
 
     handleSession();
     checkRolesAccess("-1");
