@@ -9,7 +9,13 @@
     <link rel="stylesheet" href="../CSS/them_ho_so.css">
     <link rel="stylesheet" href="../CSS/messenge.css">
     <link rel="stylesheet" href="../CSS/header.css">
+    <style>
+        .body_page{
+            display:  flex;
+        }
+    </style>
 </head>
+
 
 <body>
     <?php
@@ -31,6 +37,8 @@
     <div class="body_page">
         <?php
         include "component/menu.php";
+        include "component/admin/them_nganh.php";
+      
         include "component/admin/quan_ly_nganh.php";
 
         ?>

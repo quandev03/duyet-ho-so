@@ -62,34 +62,23 @@ function renderNganh($nganh, $isAdmin)
             <button type='submit' name='action' value='toggleStatus'>{$status}</button>
             <button type='submit' name='action' value='edit'>Sửa</button>";
 
-
-  // Chỉ hiển thị nút xóa nếu là admin
-  if ($isAdmin) {
-    echo "<button type='submit' name='action' value='delete'>Xóa ngành</button>";
-  }
-
   echo "</form></div>";
 }
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quản lý ngành học</title>
-  <link rel="stylesheet" href="../CSS/main.css">
   <style>
     .listNganh {
       display: flex;
       flex-direction: column;
       align-items: center;
       overflow-y: scroll;
-      height: 700px;
+      height: 650px;
+      
       position: relative;
-      margin-left: 100px;
+      margin-left: 70px;
+      margin-top: -45%;
+
     }
 
     .nganh {
@@ -122,11 +111,13 @@ function renderNganh($nganh, $isAdmin)
     .nganh form button:nth-child(2) {
       background: #ffc107;
     }
+   
   </style>
 </head>
 
 <body>
   <br>
+
   <div class="listNganh">
     <?php foreach ($data as $nganh) {
       renderNganh($nganh, $isAdmin);

@@ -76,28 +76,23 @@ $conn->close();
     <meta charset="UTF-8">
     <title>Thêm Ngành Xét Tuyển</title>
     <style>
-        h2 {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 40px;
-        }
 
         .button {
             background-color: #4CAF50;
             color: white;
-            padding: 10px 20px;
             border: none;
             cursor: pointer;
             font-size: 16px;
             border-radius: 5px;
             display: block;
             margin: 0 auto;
-            margin-top: 20px;
+            margin-top: 25px;
+            z-index: 1;
         }
 
-        .button:hover {
+        /* .button:hover {
             background-color: #45a049;
-        }
+        } */
 
         dialog {
             width: 700px;
@@ -155,7 +150,7 @@ $conn->close();
         }
 
         .themNganh {
-            height: 100px;
+            height: 50px;
             margin-right: -200px;
            
         }
@@ -173,7 +168,6 @@ $conn->close();
 
 <body>
     <div class="container">
-        <h2>Quản lý ngành xét tuyển</h2>
         <button class="button themNganh" onclick="openDialog()">Thêm Ngành Xét Tuyển</button>
     </div>
     <dialog id="dialog">
@@ -246,6 +240,7 @@ $conn->close();
             }
         });
     </script>
+    
 </body>
 
 </html>

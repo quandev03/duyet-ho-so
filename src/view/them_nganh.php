@@ -22,6 +22,7 @@
     <?php 
       include "component/menu.php";  
       include "component/admin/them_nganh.php";
+      include "component/admin/quan_ly_nganh.php";
     ?>
   </div>
 

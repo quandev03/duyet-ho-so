@@ -32,7 +32,6 @@
     <button type="submit" class="btn_navigate" name="menu" value="home">Trang Chủ</button>
     <hr>
     
-    
 
     <?php 
       if($_SESSION['roles'] == 1){
@@ -41,8 +40,6 @@
         echo "<button type='submit' class='btn_navigate' name='menu' value='thongKe'>Thống kê</button>";
         echo "<hr>";
         echo "<button type='submit' class='btn_navigate' name='menu' value='quanLyNganh'>Quản lý các ngành</button>";
-        echo "<hr>";
-        echo "<button type='submit' class='btn_navigate' name='menu' value='themNganh'>Thêm ngành</button>";
 
       }else if($_SESSION['roles'] == 0){
         echo "<button type='submit' class='btn_navigate' name='menu' value='themHoSo'>Duyệt hồ sơ</button>";
@@ -112,7 +109,7 @@
             header("Location: thong_ke_ho_so.php");
             break;
           }
-          case 'themNganh':
+          case 'quanLyNganh':
             if ($uri =="/duyet-ho-so/"){
               echo "<script>window.location.href = 'src/view/them_nganh.php';</script>";
               break;
@@ -123,17 +120,17 @@
               header("Location: them_nganh.php");
               break;
             }
-            case 'quanLyNganh':
-              if ($uri =="/duyet-ho-so/"){
-                echo "<script>window.location.href = 'src/view/quan_ly_nganh.php';</script>";
-                break;
-              }elseif ($uri == "/duyet-ho-so/index.php"){
-                echo "<script>window.location.href = 'src/view/quan_ly_nganh.php';</script>";
-                break;
-              }else{
-                header("Location: quan_ly_nganh.php");
-                break;
-              }
+            // case 'quanLyNganh':
+            //   if ($uri =="/duyet-ho-so/"){
+            //     echo "<script>window.location.href = 'src/view/quan_ly_nganh.php';</script>";
+            //     break;
+            //   }elseif ($uri == "/duyet-ho-so/index.php"){
+            //     echo "<script>window.location.href = 'src/view/quan_ly_nganh.php';</script>";
+            //     break;
+            //   }else{
+            //     header("Location: quan_ly_nganh.php");
+            //     break;
+            //   }
           case "dangXuat":
             session_destroy();
             if ($uri =="/duyet-ho-so/"){
