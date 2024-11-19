@@ -11,6 +11,7 @@
   <?php 
     require "../php/handle.php";
     require "component/header.php";
+    require "../../config.php";
 
     handleSession();
     // checkRolesAccess("1");

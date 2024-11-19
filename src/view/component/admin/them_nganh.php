@@ -1,8 +1,9 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "duyet_ho_so";
+require "../../config.php";
+// $servername = ;
+$username = $USERNAME_BD;
+$password = $PASSWORD_BD;
+$dbname = $DATABASE_BD;
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {

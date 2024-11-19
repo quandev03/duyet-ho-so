@@ -33,6 +33,8 @@ function renderBangNganh($nganh) {
     $khoiXetTuyen = htmlspecialchars($nganh['khoiXetTuyen']);
     $ngayBatDau = htmlspecialchars($nganh['dateStart']);
     $ngayKetThuc = htmlspecialchars($nganh['dateEnd']);
+    // $hoc_ba = htmlspecialchars($nganh['hoc_ba']);
+
 
     // Lấy điểm từ hồ sơ
     $diem = $diemRepo->findAll(
@@ -56,6 +58,7 @@ function renderBangNganh($nganh) {
         <td>{$diemMon1}</td>
         <td>{$diemMon2}</td>
         <td>{$diemMon3}</td>
+
     </tr>";
 }
 ?>
