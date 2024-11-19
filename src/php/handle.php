@@ -5,7 +5,7 @@ function handleSession() {
   if (isset($_SESSION["username"])) {
     return true;
   } else {
-    return header("Location: ../view/dang_nhap.php");
+    return header("Location: src/view/dang_nhap.php");
   }
 }
 function checkRoles($pathAdmin, $pathTeacher, $pathStudent) {

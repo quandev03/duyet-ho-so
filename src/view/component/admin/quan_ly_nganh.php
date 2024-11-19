@@ -55,16 +55,9 @@ function renderNganh($nganh)
         <p>Ngày bắt đầu: {$ngayBatDau}</p>
         <p>Ngày kết thúc: {$ngayKetThuc}</p>
         <p>Người được duyệt: {$nguoiDuyet}</p>
-        <form method='post'>
             <input type='hidden' name='idNganh' value='{$id}' />
-            <button type='submit' name='btn_status' value='$id'>{$status}</button>
-            <button type='submit' name='action' value='edit'>Sửa</button>";
-            
-    // Only show delete button for admins
-    if ($_SESSION['roles'] === 1) {
-        echo "<button type='submit' name='action' value='delete'>Xóa ngành</button>";
-    }
-
+            <button type='submit' class='btnAn btn' name='btn_status' value='$id'>{$status}</button>
+            <button type='submit' class='btnSua btn' name='action' value='edit'>Sửa</button>";
     echo "</div>";
 }
 
@@ -106,18 +99,20 @@ function renderNganh($nganh)
       margin: 5px 0;
     }
 
-    .nganh form button {
+    .btnAn {
+      background: #007bff;
+    }
+
+    .btnSua {
+      background: #ffc107;
+    }
+    .btn {
       margin-right: 10px;
       padding: 5px 10px;
       border: none;
-      background: #007bff;
       color: white;
       border-radius: 4px;
       cursor: pointer;
-    }
-
-    .nganh form button:nth-child(2) {
-      background: #ffc107;
     }
   </style>
 </head>

@@ -15,7 +15,7 @@ if (!$userId) {
 }
 $nganhDangKy = $diemRepo->findAll(["nganhXetTuyen"], where: ["idHocSinh" => $userId, "trangThai"=> "1"]);
 // print_r($nganhDangKy);
-$data = $nganhRepo->findAll("*");
+$data = $diemRepo->findAll("*", where: ["idHocSinh" => $userId]);
 // print_r($data);
 
 
@@ -25,14 +25,19 @@ function layThongTinNguoiDung($userId) {
 }
 
 $nguoiDung = layThongTinNguoiDung($userId);
+function layThongTinNganh($idNganh) {
+    global $nganhRepo;
+    $nganh = $nganhRepo->findAll(["tenNganhXetTuyen"], ["id" => $idNganh])[0];
+    return $nganh["tenNganhXetTuyen"];
+}
 function renderBangNganh($nganh) {
     global $diemRepo, $userId;
-
+    // nganhXetTuyen
+    $tenNganh = layThongTinNganh($nganh['nganhXetTuyen']);
     $id = htmlspecialchars($nganh['id']);
-    $tenNganh = htmlspecialchars($nganh['tenNganhXetTuyen']);
+    $tenNganh = htmlspecialchars($tenNganh);
     $khoiXetTuyen = htmlspecialchars($nganh['khoiXetTuyen']);
-    $ngayBatDau = htmlspecialchars($nganh['dateStart']);
-    $ngayKetThuc = htmlspecialchars($nganh['dateEnd']);
+    $ngayNop = htmlspecialchars($nganh['createAt']);
     // $hoc_ba = htmlspecialchars($nganh['hoc_ba']);
 
 
@@ -43,21 +48,27 @@ function renderBangNganh($nganh) {
     );
 
     // Gán giá trị điểm
-    $diemMon1 = htmlspecialchars($diem[0]['diemMon1'] ?? 'N/A');
-    $diemMon2 = htmlspecialchars($diem[0]['diemMon2'] ?? 'N/A');
-    $diemMon3 = htmlspecialchars($diem[0]['diemMon3'] ?? 'N/A');
-    if ($diemMon1 === 'N/A' || $diemMon2 === 'N/A' || $diemMon3 === 'N/A') {
-        return;
+    $diemMon1 = htmlspecialchars($nganh["diemMon1"] ?? 'N/A');
+    $diemMon2 = htmlspecialchars($nganh['diemMon2'] ?? 'N/A');
+    $diemMon3 = htmlspecialchars($nganh['diemMon3'] ?? 'N/A');
+    $hoc_ba_path = $nganh['hoc_ba'];
+    $hoc_ba = "";
+    if($nganh["hoc_ba"]) {
+        $hoc_ba = "<a href='../storage/file_upload/hoc_ba/$hoc_ba_path' target='_blank'=>Xem học bạ</a>";
+    } else {
+        $hoc_ba = "Chưa có học bạ";
     }
+
+
     echo "
     <tr>
         <td>{$tenNganh}</td>
         <td>{$khoiXetTuyen}</td>
-        <td>{$ngayBatDau}</td>
-        <td>{$ngayKetThuc}</td>
+        <td>{$ngayNop}</td>
         <td>{$diemMon1}</td>
         <td>{$diemMon2}</td>
         <td>{$diemMon3}</td>
+        <td>$hoc_ba</td>
 
     </tr>";
 }
@@ -120,11 +131,11 @@ function renderBangNganh($nganh) {
             <tr>
                 <th>Tên ngành</th>
                 <th>Khối xét tuyển</th>
-                <th>Ngày bắt đầu</th>
-                <th>Ngày kết thúc</th>
+                <th>Ngày nộp</th>
                 <th>Điểm môn 1</th>
                 <th>Điểm môn 2</th>
                 <th>Điểm môn 3</th>
+                <th>Xem học bạ</th>
             </tr>
         </thead>
         <tbody>

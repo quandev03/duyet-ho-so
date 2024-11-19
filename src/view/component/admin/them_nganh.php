@@ -77,7 +77,7 @@ $conn->close();
     <meta charset="UTF-8">
     <title>Thêm Ngành Xét Tuyển</title>
     <style>
-        h2 {
+         h2 {
             text-align: center;
             margin-top: 30px;
             font-size: 40px;
@@ -102,6 +102,7 @@ $conn->close();
 
         dialog {
             width: 700px;
+            height: 75%;
             padding: 10px;
             border-radius: 10px;
             background-color: #ffffff;
@@ -169,6 +170,10 @@ $conn->close();
             margin-top: -750px;
             position: absolute;
         }
+        .groupBtn {
+            display: flex;
+            
+        }
     </style>
 </head>
 
@@ -214,8 +219,10 @@ $conn->close();
             }
             ?><br>
 
+            <div class="groupBtn">
             <button class="button" type="submit">Lưu</button>
             <button class="button" type="button" onclick="closeDialog()">Đóng</button>
+            </div>
         </form>
     </dialog>
 
