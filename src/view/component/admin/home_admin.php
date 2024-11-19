@@ -121,11 +121,11 @@ footer {
             <div class="major-card">
                  <a href="./src/view/thong_ke_ho_so.php"><button type='submit' class='btn_navigate' name='menu' value='thongKe'>Thống kê</button></a>
             </div>
-            <div class="major-card">
+            <!-- <div class="major-card">
                 <a href="./src/view/quan_ly_nganh.php"><button type='submit' class='btn_navigate' name='menu' value='phanQuyen'>Quản lý các ngành</button></a>
-            </div>
+            </div> -->
             <div class="major-card">
-                <a href="./src/view/them_nganh.php"><button type='submit' class='btn_navigate' name='menu' value='themNganh'>Thêm ngành</button></a>
+                <a href="./src/view/them_nganh.php"><button type='submit' class='btn_navigate' name='menu' value='themNganh'>Quản lý các ngành</button></a>
             </div>
             <div class="major-card">
                 <a href="./src/view/dang_xuat_admin.php"><button type="submit" class="btn_navigate" name="menu" value="dangXuat">Đăng xuất</button></a>

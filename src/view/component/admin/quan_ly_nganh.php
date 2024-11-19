@@ -67,23 +67,18 @@ function renderNganh($nganh)
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quản lý ngành học</title>
-  <link rel="stylesheet" href="../CSS/main.css">
   <style>
     .listNganh {
       display: flex;
       flex-direction: column;
       align-items: center;
       overflow-y: scroll;
-      height: 700px;
+      height: 650px;
+      
       position: relative;
-      margin-left: 100px;
+      margin-left: 70px;
+      margin-top: -45%;
+
     }
 
     .nganh {
