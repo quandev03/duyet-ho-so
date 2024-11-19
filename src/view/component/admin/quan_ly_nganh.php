@@ -18,6 +18,10 @@ if(isset($_POST['btn_status'])) {
   $nganhRepo->updateOne(["status" => $status], $id);
 
 }
+if(isset($_POST['action'])) {
+  $id = $_POST['action'];
+  header("Location: ./sua_nganh.php?id=$id");
+}
 
 $data = $nganhRepo->findAll("*");
 function nguoiDuyet(string $id): string {
@@ -57,7 +61,7 @@ function renderNganh($nganh)
         <p>Người được duyệt: {$nguoiDuyet}</p>
             <input type='hidden' name='idNganh' value='{$id}' />
             <button type='submit' class='btnAn btn' name='btn_status' value='$id'>{$status}</button>
-            <button type='submit' class='btnSua btn' name='action' value='edit'>Sửa</button>";
+            <button type='submit' class='btnSua btn' name='action' value='$id'>Sửa</button>";
     echo "</div>";
 }
 
