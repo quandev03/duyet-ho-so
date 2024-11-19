@@ -75,7 +75,7 @@ justify-content: space-around;
 <form class='body_page_render' method="post">
   <div class="display">
     <div class='infoHoSo'>
-      <h3 class='text'>ID: <?php echo $thongTinHoSo["id"]?></h3>
+      <h3 class='text'>ID: <?php echo $newStatus["id"]?></h3>
       <h2 class='text'>Họ tên: <?php echo $thongTinHoSo["full_name"]?></h2>
     </div>
     <div class='infoChuyenNgạnh'>
