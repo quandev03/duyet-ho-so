@@ -10,6 +10,11 @@ if ($conn->connect_error) {
     die("Kết nối thất bại: " . $conn->connect_error);
 }
 
+if(isset($_POST['action'])) {
+    $id = $_POST['action'];
+    header("Location: ./sua_nganh.php?id=$id");
+  }
+
 // Xử lý form khi người dùng nhấn nút Lưu
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $tenNganh = $_POST['tenNganh'];
