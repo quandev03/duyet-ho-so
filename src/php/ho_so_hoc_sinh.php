@@ -1,6 +1,6 @@
 <?php
 $idHoSo = $_GET["id"];
-echo "ACs";
+// echo "ACs";
 $thongTinHoSo= layThongTinHoSo($idHoSo);
 if(isset($_POST["cancel"])) {
   echo "<a href='them_ho_so.php' id = 'navigate'></a>";
