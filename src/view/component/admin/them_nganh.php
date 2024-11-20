@@ -10,14 +10,14 @@ if ($conn->connect_error) {
     die("Kết nối thất bại: " . $conn->connect_error);
 }
 
-if(isset($_POST['action'])) {
+if (isset($_POST['action'])) {
     $id = $_POST['action'];
     header("Location: ./sua_nganh.php?id=$id");
-  }
+}
 
 // Xử lý form khi người dùng nhấn nút Lưu
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $tenNganh = $_POST['tenNganh'];
+    $tenNganh = ucwords(strtolower(trim($_POST['tenNganh'])));
     $khoi = isset($_POST['khoi']) ? implode(' ', $_POST['khoi']) : '';
     $ngayBatDau = $_POST['ngayBatDau'];
     $ngayKetThuc = $_POST['ngayKetThuc'];
@@ -28,8 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<script>alert('Ngày bắt đầu phải nhỏ hơn ngày kết thúc.');</script>";
 
     } else {
-        // kiểm tra tên nganh có tồn tại chưa
-
+        // Kiểm tra tên ngành đã tồn tại
         $checkSQL = "SELECT COUNT(*) AS count FROM nganh_xet_tuyen WHERE tenNganhXetTuyen = '$tenNganh'";
         $result = $conn->query($checkSQL);
         $row = $result->fetch_assoc();
@@ -61,6 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
+
 // Lấy danh sách giáo viên từ cơ sở dữ liệu
 $sql = "SELECT id, full_name FROM account WHERE roles = 0";
 $result = $conn->query($sql);
@@ -82,7 +82,7 @@ $conn->close();
     <meta charset="UTF-8">
     <title>Thêm Ngành Xét Tuyển</title>
     <style>
-         h2 {
+        h2 {
             text-align: center;
             margin-top: 30px;
             font-size: 40px;
@@ -106,7 +106,7 @@ $conn->close();
         }
 
         dialog {
-            width: 700px;
+            width: 40%;
             height: 75%;
             padding: 10px;
             border-radius: 10px;
@@ -162,9 +162,9 @@ $conn->close();
         }
 
         .themNganh {
-            height: 100px;
-            margin-right: -200px;
-           
+            height: 10%;
+            margin-right: -20%;
+
         }
 
         .container {
@@ -172,19 +172,19 @@ $conn->close();
             max-width: 1200px;
             text-align: center;
             padding: 20px;
-            margin-top: -750px;
+            margin-top: -50%;
             position: absolute;
         }
+
         .groupBtn {
             display: flex;
-            
+
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h2>Quản lý ngành xét tuyển</h2>
         <button class="button themNganh" onclick="openDialog()">Thêm Ngành Xét Tuyển</button>
     </div>
     <dialog id="dialog">
@@ -225,8 +225,8 @@ $conn->close();
             ?><br>
 
             <div class="groupBtn">
-            <button class="button" type="submit">Lưu</button>
-            <button class="button" type="button" onclick="closeDialog()">Đóng</button>
+                <button class="button" type="submit">Lưu</button>
+                <button class="button" type="button" onclick="closeDialog()">Đóng</button>
             </div>
         </form>
     </dialog>
@@ -258,6 +258,34 @@ $conn->close();
                 alert("Ngày bắt đầu phải nhỏ hơn ngày kết thúc.");
             }
         });
+        document.getElementById("nganhForm").addEventListener("submit", function (e) {
+            const tenNganh = document.getElementById("tenNganh").value.trim();
+            const ngayBatDau = new Date(document.getElementById("ngayBatDau").value);
+            const ngayKetThuc = new Date(document.getElementById("ngayKetThuc").value);
+            const khoiCheckboxes = document.querySelectorAll("input[name='khoi[]']:checked");
+            const giaoVienCheckboxes = document.querySelectorAll("input[name='giaoVienDuyet[]']:checked");
+
+            let errorMessage = "";
+            if (!tenNganh) {
+                errorMessage += "Vui lòng nhập tên ngành.\n";
+            }
+            if (!ngayBatDau || !ngayKetThuc) {
+                errorMessage += "Vui lòng chọn đầy đủ ngày bắt đầu và ngày kết thúc.\n";
+            } else if (ngayBatDau >= ngayKetThuc) {
+                errorMessage += "Ngày bắt đầu phải nhỏ hơn ngày kết thúc.\n";
+            }
+            if (khoiCheckboxes.length === 0) {
+                errorMessage += "Vui lòng chọn ít nhất một khối xét tuyển.\n";
+            }
+            if (giaoVienCheckboxes.length === 0) {
+                errorMessage += "Vui lòng chọn ít nhất một giáo viên duyệt.\n";
+            }
+            if (errorMessage) {
+                e.preventDefault();
+                alert(errorMessage);
+            }
+        });
+
     </script>
 </body>
 

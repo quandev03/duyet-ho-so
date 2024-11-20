@@ -120,17 +120,7 @@
               header("Location: them_nganh.php");
               break;
             }
-            // case 'quanLyNganh':
-            //   if ($uri =="/duyet-ho-so/"){
-            //     echo "<script>window.location.href = 'src/view/quan_ly_nganh.php';</script>";
-            //     break;
-            //   }elseif ($uri == "/duyet-ho-so/index.php"){
-            //     echo "<script>window.location.href = 'src/view/quan_ly_nganh.php';</script>";
-            //     break;
-            //   }else{
-            //     header("Location: quan_ly_nganh.php");
-            //     break;
-            //   }
+          
           case "dangXuat":
             session_destroy();
             if ($uri =="/duyet-ho-so/"){

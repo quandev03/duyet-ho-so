@@ -38,9 +38,6 @@ function renderBangNganh($nganh) {
     $tenNganh = htmlspecialchars($tenNganh);
     $khoiXetTuyen = htmlspecialchars($nganh['khoiXetTuyen']);
     $ngayNop = htmlspecialchars($nganh['createAt']);
-    // $hoc_ba = htmlspecialchars($nganh['hoc_ba']);
-
-
     // Lấy điểm từ hồ sơ
     $diem = $diemRepo->findAll(
         ["diemMon1", "diemMon2", "diemMon3"],
@@ -53,10 +50,19 @@ function renderBangNganh($nganh) {
     $diemMon3 = htmlspecialchars($nganh['diemMon3'] ?? 'N/A');
     $hoc_ba_path = $nganh['hoc_ba'];
     $hoc_ba = "";
+    $trangThai = htmlspecialchars($nganh['trangThai']);
     if($nganh["hoc_ba"]) {
         $hoc_ba = "<a href='../storage/file_upload/hoc_ba/$hoc_ba_path' target='_blank'=>Xem học bạ</a>";
     } else {
         $hoc_ba = "Chưa có học bạ";
+    }
+    if($nganh['trangThai']== 1){
+        $trangThai = "Đã Duyệt";
+    }else if($nganh['trangThai']== -1){
+        $trangThai = "Từ chối";
+    }else if($nganh['trangThai']== 0){
+       $trangThai ="Chưa duyệt";
+
     }
 
 
@@ -69,6 +75,8 @@ function renderBangNganh($nganh) {
         <td>{$diemMon2}</td>
         <td>{$diemMon3}</td>
         <td>$hoc_ba</td>
+        <td>$trangThai</td>
+
 
     </tr>";
 }
@@ -86,18 +94,20 @@ function renderBangNganh($nganh) {
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-left: 20px;
+            margin-right: 3%;
             border: 1px solid black;
+            overflow-y: scroll;
+
 
         }
 
         table, th, td {
             border: 1px solid #ddd;
+            padding: 2px;
         }
 
         th, td {
-            text-align: left;
-            padding: 8px;
+            position: relative;
         }
 
         th {
@@ -105,8 +115,9 @@ function renderBangNganh($nganh) {
         }
 
         .profile {
+
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 10%;
         }
     </style>
 </head>
@@ -136,6 +147,7 @@ function renderBangNganh($nganh) {
                 <th>Điểm môn 2</th>
                 <th>Điểm môn 3</th>
                 <th>Xem học bạ</th>
+                <th>Trạng thái duyệt</th>
             </tr>
         </thead>
         <tbody>

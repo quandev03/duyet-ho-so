@@ -1,0 +1,250 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Nov 14, 2024 at 06:07 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `duyet_ho_so`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `account`
+--
+
+CREATE TABLE `account` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `full_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `roles` int(11) NOT NULL DEFAULT -1,
+  `avatar` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `account`
+--
+
+INSERT INTO `account` (`id`, `username`, `password`, `full_name`, `roles`, `avatar`) VALUES
+(1, 'admin', '7c1af80281a478efb622c87b5f3faa94', 'ADMIN', 1, NULL),
+(2, 'hs', '789406d01073ca1782d86293dcfc0764', 'DEFAULT_STUDENT', -1, NULL),
+(3, 'quandangokk', '2f8afada1c03ac4cc1610444224aea83', 'Ngô Hồng Quân', -1, NULL),
+(4, 'gv', '7dc2e5a1851b162c949b9a7bd58ea968', 'DEFAULT_TEACHER', 0, NULL),
+(5, 'hocsinh', '2f8afada1c03ac4cc1610444224aea83', 'Hoc Sinh', -1, NULL),
+(6, 'giaovien', '2f8afada1c03ac4cc1610444224aea83', 'Giao Viên', 0, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `giao_vien`
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ho_so_xet_tuyen`
+--
+
+CREATE TABLE `ho_so_xet_tuyen` (
+  `id` int(11) NOT NULL,
+  `idHocSinh` int(11) NOT NULL,
+  `khoiXetTuyen` varchar(4) NOT NULL,
+  `nganhXetTuyen` int(11) NOT NULL,
+  `diemMon1` float NOT NULL,
+  `diemMon2` float NOT NULL,
+  `diemMon3` float NOT NULL,
+  `hoc_ba` varchar(255) DEFAULT NULL,
+  `trangThai` int(11) NOT NULL DEFAULT 0,
+  `nguoiDuyet` int(11) DEFAULT NULL,
+  `createAt` date DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ho_so_xet_tuyen`
+--
+
+INSERT INTO `ho_so_xet_tuyen` (`id`, `idHocSinh`, `khoiXetTuyen`, `nganhXetTuyen`, `diemMon1`, `diemMon2`, `diemMon3`, `hoc_ba`, `trangThai`, `nguoiDuyet`, `createAt`) VALUES
+(47, 2, 'A00', 1, 8, 9, 10, NULL, 0, NULL, '2024-11-09'),
+(48, 2, 'C00', 7, 9, 10, 9, NULL, 0, NULL, '2024-11-11'),
+(49, 2, 'B00', 6, 0, 0, 0, NULL, 0, NULL, '2024-11-11');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nganh_xet_tuyen`
+--
+
+CREATE TABLE `nganh_xet_tuyen` (
+  `id` int(11) NOT NULL,
+  `tenNganhXetTuyen` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `khoiXetTuyen` varchar(100) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `nguoiDuyet` varchar(255) DEFAULT '_',
+  `dateStart` date NOT NULL,
+  `dateEnd` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `nganh_xet_tuyen`
+--
+
+INSERT INTO `nganh_xet_tuyen` (`id`, `tenNganhXetTuyen`, `khoiXetTuyen`, `status`, `nguoiDuyet`, `dateStart`, `dateEnd`) VALUES
+(1, 'Công Nghệ Thông Tin', 'A00 A01 D01', 1, '_2_4_5_11_', '2024-11-01', '2025-01-25'),
+(2, 'Sư Phạm Tin Học', 'A00 A01 D01', 1, NULL, '2024-11-01', '2025-01-25'),
+(3, 'Sinh Học', 'B00', 1, '_2_4_5_11_', '2024-11-01', '2025-01-25'),
+(4, 'Sư Phạm Sinh Học', 'B00', 1, NULL, '2024-11-01', '2025-01-25'),
+(5, 'Sư Phạm Hoá Học', 'B00', 1, '_2_4_5_11_', '2024-11-01', '2025-01-25'),
+(6, 'Sư Phạm Hoá Học', 'B00', 1, NULL, '2024-11-01', '2025-01-25'),
+(7, 'Sư Phạm Lịch Sử', 'C00', 1, NULL, '2024-11-01', '2025-01-25'),
+(8, 'Văn Học', 'D01 C00', 1, NULL, '2024-11-01', '2025-01-25');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification`
+--
+
+CREATE TABLE `notification` (
+  `id` int(11) NOT NULL,
+  `title` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `messenge` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `sent_to` int(11) NOT NULL,
+  `readed` tinyint(1) DEFAULT 0,
+  `createAt` date DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notification`
+--
+
+INSERT INTO `notification` (`id`, `title`, `messenge`, `sent_to`, `readed`, `createAt`) VALUES
+(1, 'Thong Bao 1', 'ABC', 3, 0, '2024-11-08'),
+(2, 'Thong Bao 1', 'ABC', 3, 0, '2024-11-08'),
+(3, 'Thong Bao 1', 'ABC', 3, 0, '2024-11-08'),
+(4, 'Thong Bao 1', 'ABC', 3, 0, '2024-11-08'),
+(5, 'Thong Bao 1', 'ABC', 3, 0, '2024-11-08'),
+(6, 'Thong Bao 1', 'ABC', 3, 0, '2024-11-08'),
+(7, 'Thong Bao 1', 'ABC', 3, 0, '2024-11-08'),
+(8, 'Thong Bao 1', 'ABC', 3, 0, '2024-11-08'),
+(9, 'Thong Bao 1', 'ABC', 3, 0, '2024-11-08'),
+(10, 'Thong Bao 1', 'ABC', 3, 0, '2024-11-08'),
+(11, 'Hồ sơ bị từ chối', 'Hồ sơ của bạn đã bị Giáo Viên từ chối', 1, 0, '2024-11-08'),
+(12, 'Hồ sơ bị từ chối', 'Hồ sơ của bạn đã bị Giáo Viên từ chối', 1, 0, '2024-11-08'),
+(13, 'Hồ sơ bị từ chối', 'Hồ sơ của bạn đã bị Giáo Viên từ chối', 1, 0, '2024-11-08'),
+(14, 'Hồ sơ bị từ chối', 'Hồ sơ của bạn đã bị Giáo Viên từ chối', 1, 0, '2024-11-08'),
+(15, 'Hồ sơ bị từ chối', 'Hồ sơ của bạn đã bị Giáo Viên từ chối', 1, 0, '2024-11-08'),
+(16, 'Hồ sơ bị từ chối', 'Hồ sơ của bạn đã bị Giáo Viên từ chối', 1, 0, '2024-11-08'),
+(17, 'Hồ sơ bị từ chối', 'Hồ sơ của bạn đã bị Giáo Viên từ chối', 1, 0, '2024-11-08'),
+(18, 'Hồ sơ được duyệt', 'Hồ sơ của bạn đã bị Giáo Viên được duyệt', 1, 0, '2024-11-08'),
+(19, 'Hồ sơ được duyệt', 'Hồ sơ của bạn đã bị Giáo Viên được duyệt', 3, 0, '2024-11-08'),
+(20, 'Hồ sơ Xoá', 'Hồ sơ của bạn đã bị ADMIN xoá', 1, 0, '2024-11-11'),
+(21, 'Hồ sơ Xoá', 'Hồ sơ của bạn đã bị ADMIN xoá', 1, 0, '2024-11-11'),
+(22, 'Hồ sơ Xoá', 'Hồ sơ của bạn đã bị ADMIN xoá', 1, 0, '2024-11-11'),
+(23, 'Hồ sơ được duyệt', 'Hồ sơ của bạn đã bị Giáo Viên được duyệt', 5, 0, '2024-11-12'),
+(24, 'Hồ sơ Xoá', 'Hồ sơ của bạn đã bị Giáo Viên xoá', 5, 0, '2024-11-12'),
+(25, 'Hồ sơ Xoá', 'Hồ sơ của bạn đã bị ADMIN xoá', 1, 0, '2024-11-12'),
+(26, 'Hồ sơ Xoá', 'Hồ sơ của bạn đã bị Giáo Viên xoá', 3, 0, '2024-11-12');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `account`
+--
+ALTER TABLE `account`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
+
+--
+-- Indexes for table `giao_vien`
+--
+ALTER TABLE `giao_vien`
+  ADD PRIMARY KEY (`id_giaoVien`);
+
+--
+-- Indexes for table `ho_so_xet_tuyen`
+--
+ALTER TABLE `ho_so_xet_tuyen`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `nganhXetTuyen` (`nganhXetTuyen`),
+  ADD KEY `idHocSinh` (`idHocSinh`),
+  ADD KEY `nguời duyệt` (`nguoiDuyet`);
+
+--
+-- Indexes for table `nganh_xet_tuyen`
+--
+ALTER TABLE `nganh_xet_tuyen`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `notification`
+--
+ALTER TABLE `notification`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `account`
+--
+ALTER TABLE `account`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `giao_vien`
+--
+ALTER TABLE `giao_vien`
+  MODIFY `id_giaoVien` int(5) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ho_so_xet_tuyen`
+--
+ALTER TABLE `ho_so_xet_tuyen`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+
+--
+-- AUTO_INCREMENT for table `nganh_xet_tuyen`
+--
+ALTER TABLE `nganh_xet_tuyen`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `notification`
+--
+ALTER TABLE `notification`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `ho_so_xet_tuyen`
+--
+ALTER TABLE `ho_so_xet_tuyen`
+  ADD CONSTRAINT `ho_so_xet_tuyen_ibfk_1` FOREIGN KEY (`nganhXetTuyen`) REFERENCES `nganh_xet_tuyen` (`id`),
+  ADD CONSTRAINT `ho_so_xet_tuyen_ibfk_2` FOREIGN KEY (`idHocSinh`) REFERENCES `account` (`id`),
+  ADD CONSTRAINT `nguời duyệt` FOREIGN KEY (`nguoiDuyet`) REFERENCES `account` (`id`) ON DELETE SET NULL;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -2,6 +2,7 @@
 if(isset($_POST['btnNopHoSo'])) {
   $dataCheck =checkDaNopHoSo($_SESSION['userId'], $infoNganh["id"]);
   if(checkDaNopHoSo($_SESSION['userId'], $infoNganh["id"])){
+    
     displayMessage("Hồ sơ đã được nộp", "warning");
   }else{
     $khoi = $_POST['khoi'];

@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $conn->query($sqlGV);
                     }
                 }
-                echo "<script>alert('Ngành đã được sửa thành công!'); window.location.href = 'quan_ly_nganh.php';</script>";
+                echo "<script>alert('Ngành đã được sửa thành công!'); window.location.href = 'them_nganh.php';</script>";
             } else {
                 echo "Lỗi: " . $sql . "<br>" . $conn->error;
             }
@@ -82,11 +82,6 @@ $conn->close();
     <meta charset="UTF-8">
     <title>Sửa Ngành Xét Tuyển</title>
     <style>
-        h2 {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 40px;
-        }
 
         .button {
             background-color: #4CAF50;
@@ -153,17 +148,16 @@ $conn->close();
         }
         #nganhForm{
             /* text-align: center; */
-            margin-top: 30px;
+            margin-top: 5%;
             /* font-size: 40px; */
-            margin-right: 1000px;
             border: 1px solid  black;
             width: 600px;
             height: 600px;
 
         }
         .container{
-            margin-left: 600px;
-            margin-top: -700px;
+            margin-left: 40%;
+            margin-top: -50%;
         }
 
     </style>
@@ -212,7 +206,7 @@ $conn->close();
             ?><br>
 
             <button type="submit" class="button">Lưu</button>
-            <button type="button" class="button" onclick="window.location.href='quan_ly_nganh.php'">Đóng</button>
+            <button type="button" class="button" onclick="window.location.href='them_nganh.php'">Đóng</button>
         </form>
     </div>
 </body>

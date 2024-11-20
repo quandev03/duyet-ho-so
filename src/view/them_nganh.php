@@ -17,7 +17,7 @@
     // checkRolesAccess("1");
   ?>
   <div>
-    <?php header_page("Thêm ngành xét tuyển", '..');?>
+    <?php header_page("Quản lý ngành xét tuyển", '..');?>
   </div>
   <div class="body_page">
     <?php 
