@@ -6,12 +6,14 @@
   <title>Nộp Hồ Sơ</title>
   <link rel="stylesheet" href="../CSS/main.css">
   <link rel="stylesheet" href="../CSS/header.css">
+  <link rel="stylesheet" href="../CSS/sua_nganh.css">
 </head>
 <body> 
   <?php 
     require "../php/handle.php";
     require "component/header.php";
     require "../../config.php";
+    require "../php/data.php";
 
     handleSession();
     // checkRolesAccess("1");

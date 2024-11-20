@@ -20,11 +20,10 @@ if(isset($_POST['btn_status'])) {
 }
 if(isset($_POST['action'])) {
   $id = $_POST['action'];
-  header("Location: ./quan_ly_nganh.php?id=$id");
+  header("Location: sua_nganh.php?id=$id");
 }
 
 $data = $nganhRepo->findAll( "*");
-print_r($data);
 
 function nguoiDuyet(string $id): string {
   if ($id=='_') return 'Chưa có người đươc duyệt';
@@ -72,12 +71,12 @@ function renderNganh($nganh) {
   .listNganh {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     overflow-y: auto;
-    height: 90%;
+    height: 700px;
+    width: 70%;
     position: absolute;
-    margin-left: 10%;
-    margin-top: -45%;
+    margin-left: 5%;
   }
 
   .nganh {

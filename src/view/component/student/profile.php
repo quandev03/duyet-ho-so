@@ -1,6 +1,7 @@
 <?php
 require "../Database/Repository.php";
 
+
 session_start();
 
 $nganhRepo = new Repository('nganh_xet_tuyen');
@@ -38,11 +39,7 @@ function renderBangNganh($nganh) {
     $tenNganh = htmlspecialchars($tenNganh);
     $khoiXetTuyen = htmlspecialchars($nganh['khoiXetTuyen']);
     $ngayNop = htmlspecialchars($nganh['createAt']);
-    // Lấy điểm từ hồ sơ
-    $diem = $diemRepo->findAll(
-        ["diemMon1", "diemMon2", "diemMon3"],
-        ["idHocSinh" => $userId, "nganhXetTuyen" => $id]
-    );
+    
 
     // Gán giá trị điểm
     $diemMon1 = htmlspecialchars($nganh["diemMon1"] ?? 'N/A');
@@ -64,6 +61,7 @@ function renderBangNganh($nganh) {
        $trangThai ="Chưa duyệt";
 
     }
+    $nguoiDuyet = $nganh['nguoiDuyet'] ? layThongTinNguoiDung($nganh['nguoiDuyet'])['full_name'] : 'Chưa có người duyệt';
 
 
     echo "
@@ -76,6 +74,7 @@ function renderBangNganh($nganh) {
         <td>{$diemMon3}</td>
         <td>$hoc_ba</td>
         <td>$trangThai</td>
+        <td>$nguoiDuyet</td>
 
 
     </tr>";
@@ -118,12 +117,29 @@ function renderBangNganh($nganh) {
 
             text-align: center;
             margin-bottom: 10%;
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            align-items: center;
+            /* justify-content: center; */
+        }
+        .renderTable {
+            width: 90%;
+        }
+        td:nth-child(1) {
+            width: 20%;
+        }
+        td:last-child {
+            width: 15%;
+        }
+        td:nth-child(4), td:nth-child(5), td:nth-child(6) {
+            width: 5%;
         }
     </style>
 </head>
 
 <body>
-                <p><strong>Các ngành đã nộp xét tuyển</p>
+                
 
     <div class="profile">
         <?php if ($nguoiDung): ?>
@@ -135,9 +151,9 @@ function renderBangNganh($nganh) {
         <?php else: ?>
             <p>Không tìm thấy thông tin người dùng.</p>
         <?php endif; ?>
-    </div>
-
-    <table>
+        <p><strong>Các ngành đã nộp xét tuyển</strong></p>
+    
+    <table class="renderTable">
         <thead>
             <tr>
                 <th>Tên ngành</th>
@@ -148,6 +164,7 @@ function renderBangNganh($nganh) {
                 <th>Điểm môn 3</th>
                 <th>Xem học bạ</th>
                 <th>Trạng thái duyệt</th>
+                <th>Người Duyệt</th>
             </tr>
         </thead>
         <tbody>
@@ -162,6 +179,7 @@ function renderBangNganh($nganh) {
         <?php endif; ?>
         </tbody>
     </table>
+    </div>
 </body>
 
 </html>

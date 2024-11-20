@@ -75,10 +75,7 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
-<!DOCTYPE html>
-<html lang="vi">
 
-<head>
     <meta charset="UTF-8">
     <title>Sửa Ngành Xét Tuyển</title>
     <style>
@@ -147,37 +144,51 @@ $conn->close();
             background-color: #e53935;
         }
         #nganhForm{
-            /* text-align: center; */
-            margin-top: 5%;
-            /* font-size: 40px; */
-            border: 1px solid  black;
+            /* background-color: lightsteelblue; */
             width: 600px;
-            height: 600px;
+            height: 400px;
 
         }
         .container{
-            margin-left: 40%;
-            margin-top: -50%;
+            margin: 0%;
+            padding: 10% 5% ;
+            width: 70%;
+            height: 200px;
+            border: none;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+        .layout{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 90%;
+        }
+        .dateGr {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+        }
+        .date {
+            width: 45%;
+        }
+        #ngayBatDau, #ngayKetThuc {
+            width: 100%;
+        }
+        .btnGr {
+            display: flex;
+            justify-content: space-around;
         }
 
     </style>
-</head>
-
-<body>
-    <div class="container">
-        <form id="nganhForm" action="" method="POST">
+    <div class="layout">
+        <form id="nganhForm" class="container" action="" method="POST">
             <label for="tenNganh">Tên Ngành:</label>
             <input type="text" id="tenNganh" name="tenNganh" value="<?php echo $nganh['tenNganhXetTuyen']; ?>" required><br><br>
 
             <label>Chọn Khối:</label><br>
             <?php
-            $dsKhoiXetTuyen = [
-                "A00" => ["Toán", "Lý", "Hoá"],
-                "A01" => ["Toán", "Lý", "Anh"],
-                "B00" => ["Toán", "Hoá", "Sinh"],
-                "C00" => ["Văn", "Sử", "Địa"],
-                "D01" => ["Toán", "Văn", "Anh"]
-            ];
+        
 
             // Lấy khối đã chọn từ cơ sở dữ liệu
             $khoiSelected = explode(' ', $nganh['khoiXetTuyen']);
@@ -188,11 +199,16 @@ $conn->close();
             }
             ?><br>
 
-            <label for="ngayBatDau">Ngày Bắt Đầu:</label>
+            <div class="dateGr">
+            <div class="date">
+            <label for="ngayBatDau">Ngày Bắt Đầu:</label><br>
             <input type="date" id="ngayBatDau" name="ngayBatDau" value="<?php echo $nganh['dateStart']; ?>" required><br><br>
-
-            <label for="ngayKetThuc">Ngày Kết Thúc:</label>
+            </div>
+            <div class="date">
+            <label for="ngayKetThuc">Ngày Kết Thúc:</label><br>
             <input type="date" id="ngayKetThuc" name="ngayKetThuc" value="<?php echo $nganh['dateEnd']; ?>" required><br><br>
+            </div>
+            </div>
 
             <label>Giáo Viên Duyệt:</label><br>
             <?php
@@ -204,11 +220,10 @@ $conn->close();
                 }
             }
             ?><br>
-
-            <button type="submit" class="button">Lưu</button>
-            <button type="button" class="button" onclick="window.location.href='them_nganh.php'">Đóng</button>
+            <div class="btnGr">
+                <button type="submit" class="button">Lưu</button>
+                <button type="button" class="button" onclick="window.location.href='them_nganh.php'">Đóng</button>
+            </div>
         </form>
     </div>
-</body>
-
 </html>

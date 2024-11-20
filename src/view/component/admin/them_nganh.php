@@ -163,18 +163,11 @@ $conn->close();
 
         .themNganh {
             height: 10%;
-            margin-right: -20%;
-
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            text-align: center;
-            padding: 20px;
-            margin-top: -50%;
             position: absolute;
+            right: 10px;
+            width: 15%;
         }
+
 
         .groupBtn {
             display: flex;
@@ -183,10 +176,7 @@ $conn->close();
     </style>
 </head>
 
-<body>
-    <div class="container">
-        <button class="button themNganh" onclick="openDialog()">Thêm Ngành Xét Tuyển</button>
-    </div>
+    <button class="button themNganh" onclick="openDialog()">Thêm Ngành Xét Tuyển</button>
     <dialog id="dialog">
         <form id="nganhForm" action="" method="POST">
             <label for="tenNganh">Tên Ngành:</label>
@@ -287,6 +277,5 @@ $conn->close();
         });
 
     </script>
-</body>
 
 </html>
