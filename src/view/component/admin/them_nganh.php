@@ -184,14 +184,6 @@ $conn->close();
 
             <label>Chọn Khối:</label><br>
             <?php
-            // Danh sách các khối xét tuyển
-            $dsKhoiXetTuyen = [
-                "A00" => ["Toán", "Lý", "Hoá"],
-                "A01" => ["Toán", "Lý", "Anh"],
-                "B00" => ["Toán", "Hoá", "Sinh"],
-                "C00" => ["Văn", "Sử", "Địa"],
-                "D01" => ["Toán", "Văn", "Anh"]
-            ];
             foreach ($dsKhoiXetTuyen as $maKhoi => $monThi) {
                 echo '<input type="checkbox" name="khoi[]" value="' . $maKhoi . '"> ' . $maKhoi . ' (' . implode(', ', $monThi) . ')<br>';
             }

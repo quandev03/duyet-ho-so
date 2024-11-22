@@ -13,6 +13,7 @@
     require "../php/handle.php";
     require "component/header.php";
     require "../../config.php";
+    require "../php/data.php";
 
     handleSession();
     // checkRolesAccess("1");
