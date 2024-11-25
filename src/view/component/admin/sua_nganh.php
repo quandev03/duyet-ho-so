@@ -184,7 +184,7 @@ $conn->close();
     <div class="layout">
         <form id="nganhForm" class="container" action="" method="POST">
             <label for="tenNganh">Tên Ngành:</label>
-            <input type="text" id="tenNganh" name="tenNganh" value="<?php echo $nganh['tenNganhXetTuyen']; ?>" required><br><br>
+            <input type="text" id="tenNganh" name="tenNganh" value="<?php echo $nganh['tenNganhXetTuyen'];?>" disabled required><br><br>
 
             <label>Chọn Khối:</label><br>
             <?php

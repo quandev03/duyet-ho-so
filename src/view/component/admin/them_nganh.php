@@ -24,10 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $giaoVienDuyet = isset($_POST['giaoVienDuyet']) ? $_POST['giaoVienDuyet'] : [];
     $nguoi_duyet = "_" . implode("_", $giaoVienDuyet) . "_";
 
-    if (strtotime($ngayBatDau) >= strtotime($ngayKetThuc)) {
-        echo "<script>alert('Ngày bắt đầu phải nhỏ hơn ngày kết thúc.');</script>";
-
-    } else {
+}
+else {
         // Kiểm tra tên ngành đã tồn tại
         $checkSQL = "SELECT COUNT(*) AS count FROM nganh_xet_tuyen WHERE tenNganhXetTuyen = '$tenNganh'";
         $result = $conn->query($checkSQL);
@@ -58,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
     }
-}
 
 
 // Lấy danh sách giáo viên từ cơ sở dữ liệu

@@ -52,16 +52,11 @@ form {
   background-color: white;
   
   background-image: url(<?php 
-  switch ($_SERVER["REQUEST_URI"]) {
-    case "/duyet_ho_so/":
+  // print_r( $_SERVER);
+  if ($_SERVER["PHP_SELF"] == "/duyet-ho-so/index.php") {
       echo "src/storage/image_system/icons8-notification-30.png";
-      break;
-    case "/duyet-ho-so/index.php":
-      echo "src/storage/image_system/icons8-notification-30.png";
-      break;
-    default:
+  } else {
       echo "../storage/image_system/icons8-notification-30.png";
-      break;
   }
   ?>);
   /* background-image: url('../storage/image_system/icons8-notification-30.png'); */
@@ -89,15 +84,9 @@ if(isset($_POST["btnNotification"])){
   // echo "<script>document.querySelector('.dialog_notification').style.display = 'block';</script>";
   // header("Location: trang_thong_bao.php");
   // print_r($_SERVER);
-  switch ($_SERVER["REQUEST_URI"]) {
-    case "/duyet_ho_so/":
-      header("Location: src/view/trang_thong_bao.php");
-      break;
-    case "/duyet-ho-so/index.php":
-      header("Location: src/view/trang_thong_bao.php");
-      break;
-    default:
-      header("Location: trang_thong_bao.php");
-      break;
-  }
+  if ($_SERVER["PHP_SELF"] == "/duyet-ho-so/index.php") {
+    header("Location: src/view/trang_thong_bao.php");
+} else {
+  header("Location: trang_thong_bao.php");
+}
 }

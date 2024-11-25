@@ -13,10 +13,3 @@ function layDuLieuNganhChoHocSinh() {
   $data = $mysqli->findAll('*', ["status"=> 1]);
   return $data;
 }
-// function toggleStatus($id): int {
-//   $currentVisibility = $mysqli->findOne(['status'], ['id' => $id])['status'];
-//   $newVisibility = $currentVisibility ? 0 : 1;
-//   $this->updateOne(['status' => $newVisibility], $id);
-//   return $newVisibility;
-// }
-
