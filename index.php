@@ -85,6 +85,9 @@
     require "./src/php/messenge.php";
     // require "./src/php/ho_so_hoc_sinh_repo.php";
     require "./src/Database/Repository.php";
+    include "./src/php/them_ho_so_repo.php";
+    include "src/php/them_ho_so_hs.php";
+
    
     handleSession();
   ?>
@@ -95,9 +98,8 @@
   
   <div class="body_page">
     <?php 
-        if($_SESSION["roles"]!=1 && $_SESSION["roles"]!=0 ) include "./src/view/component/menu.php";
-        checkRoles("./src/view/component/admin/home_admin.php", "./src/view/component/teacher/home_gv.php", "./src/view/component/student/home_hs.php");
-
+        include "./src/view/component/menu.php";
+        checkRoles(pathAdmin: "./src/view/component/admin/them_ho_so.php", pathTeacher: "./src/view/component/admin/them_ho_so.php", pathStudent: "./src/view/component/student/them_ho_so.php");
     
     ?>
   </div>

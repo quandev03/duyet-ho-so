@@ -1,14 +1,14 @@
 <?php
 require "../../config.php";
-// $servername = ;
-$username = $USERNAME_BD;
-$password = $PASSWORD_BD;
-$dbname = $DATABASE_BD;
+// require "../Database/Repository.php";
+require "../php/messenge.php";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Kết nối thất bại: " . $conn->connect_error);
-}
+// $conn = new mysqli($servername, $username, $password, $dbname);
+// $nganhRepo = new Repository('nganh_xet_tuyen');
+$accRepo = new Repository('account');
+// if ($conn->connect_error) {
+//     die("Kết nối thất bại: " . $conn->connect_error);
+// }
 
 if (isset($_POST['action'])) {
     $id = $_POST['action'];
@@ -16,7 +16,7 @@ if (isset($_POST['action'])) {
 }
 
 // Xử lý form khi người dùng nhấn nút Lưu
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if (isset($_POST['btnSave'])) {
     $tenNganh = ucwords(strtolower(trim($_POST['tenNganh'])));
     $khoi = isset($_POST['khoi']) ? implode(' ', $_POST['khoi']) : '';
     $ngayBatDau = $_POST['ngayBatDau'];
@@ -24,52 +24,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $giaoVienDuyet = isset($_POST['giaoVienDuyet']) ? $_POST['giaoVienDuyet'] : [];
     $nguoi_duyet = "_" . implode("_", $giaoVienDuyet) . "_";
 
-}
-else {
+    if (strtotime($ngayBatDau) >= strtotime($ngayKetThuc)) {
+        echo "<script>alert('Ngày bắt đầu phải nhỏ hơn ngày kết thúc.');</script>";
+        // displayMessage('Ngày bắt đầu phải nhỏ hơn ngày kết thúc', 'error');
+
+    } else {
         // Kiểm tra tên ngành đã tồn tại
-        $checkSQL = "SELECT COUNT(*) AS count FROM nganh_xet_tuyen WHERE tenNganhXetTuyen = '$tenNganh'";
-        $result = $conn->query($checkSQL);
-        $row = $result->fetch_assoc();
+        $checkSQL = $nganhRepo->findAll('*', ['tenNganhXetTuyen' => $tenNganh])[0];
 
-        if ($row['count'] > 0) {
+
+        if ($checkSQL) {
             echo "<script>alert('Tên ngành này đã tồn tại. Vui lòng chọn tên ngành khác.');</script>";
-
         } else {
+            $dataSent = [
+                'tenNganhXetTuyen' => $tenNganh,
+                'khoiXetTuyen' => $khoi,
+                'nguoiDuyet' => $nguoi_duyet,
+                'dateStart' => $ngayBatDau,
+                'dateEnd' => $ngayKetThuc
+            ];
+
             // Thêm ngành vào bảng nganh_xet_tuyen
-            $sql = "INSERT INTO nganh_xet_tuyen (tenNganhXetTuyen, khoiXetTuyen, nguoiDuyet, dateStart, dateEnd) 
-                    VALUES ('$tenNganh', '$khoi', '$nguoi_duyet', '$ngayBatDau', '$ngayKetThuc')";
-            if ($conn->query($sql) === TRUE) {
-                $nganhId = $conn->insert_id;
-
-                // Thêm giáo viên duyệt vào bảng giao_vien_duyet
-                if (!empty($giaoVienDuyet)) {
-                    foreach ($giaoVienDuyet as $giaoVienId) {
-                        $sqlGV = "INSERT INTO giao_vien_duyet (nganhId, giaoVienId) 
-                                VALUES ($nganhId, $giaoVienId)";
-                        $conn->query($sqlGV);
-                    }
-                }
-
-                echo "<script>alert('Ngành đã được thêm thành công!');</script>";
-            } else {
-                echo "Lỗi: " . $sql . "<br>" . $conn->error;
-            }
+            $nganhRepo->createOne($dataSent);
+            echo "<script>alert('Thêm ngành thành công.'); window.location.reload()</script>";
         }
     }
+}
 
 
 // Lấy danh sách giáo viên từ cơ sở dữ liệu
-$sql = "SELECT id, full_name FROM account WHERE roles = 0";
-$result = $conn->query($sql);
+$teachers = $accRepo->findAll(['id', 'full_name'], ['roles' => 0]);
 
-$teachers = [];
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $teachers[] = $row;
-    }
-}
-
-$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -204,7 +189,7 @@ $conn->close();
             ?><br>
 
             <div class="groupBtn">
-                <button class="button" type="submit">Lưu</button>
+                <button class="button" type="submit" name ="btnSave">Lưu</button>
                 <button class="button" type="button" onclick="closeDialog()">Đóng</button>
             </div>
         </form>

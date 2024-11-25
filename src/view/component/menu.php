@@ -35,23 +35,19 @@
 
     <?php 
       if($_SESSION['roles'] == 1){
-        echo "<button type='submit' class='btn_navigate' name='menu' value='themHoSo'>Duyệt hồ sơ</button>";
-        echo "<hr>";
         echo "<button type='submit' class='btn_navigate' name='menu' value='thongKe'>Thống kê</button>";
         echo "<hr>";
         echo "<button type='submit' class='btn_navigate' name='menu' value='quanLyNganh'>Quản lý các ngành</button>";
-
-      }else if($_SESSION['roles'] == 0){
-        echo "<button type='submit' class='btn_navigate' name='menu' value='themHoSo'>Duyệt hồ sơ</button>";
+        echo "<hr>";
       }
-      else{
+      elseif($_SESSION['roles'] == -1){
         echo "<button type='submit' class='btn_navigate' name='menu' value='themHoSo'>Nộp hồ sơ</button>";
         echo "<hr>";
         echo "<button type='submit' class='btn_navigate' name='menu' value='profile'>Profile</button>";
+        echo "<hr>";
       }
 
     ?>
-    <hr>
     <button type="submit" class="btn_navigate" name="menu" value="dangXuat">Đăng xuất</button>
 
  

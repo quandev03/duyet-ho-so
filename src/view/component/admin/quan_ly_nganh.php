@@ -49,7 +49,7 @@ function renderNganh($nganh) {
   $ngayBatDau = htmlspecialchars($nganh['dateStart']);
   $ngayKetThuc = htmlspecialchars($nganh['dateEnd']);
   $nguoiDuyet = nguoiDuyet($nganh['nguoiDuyet']);
-  $status = isset($nganh['status']) && $nganh['status'] ? "Hiện" : "Ẩn";
+  $status = isset($nganh['status']) && $nganh['status'] ? "Ẩn" : "Hiện";
 
   echo "
   <div class='nganh'>

@@ -5,18 +5,16 @@ $password = $PASSWORD_BD;
 $dbname = $DATABASE_BD;
 
 $conn = new mysqli($servername, $username, $password, $dbname);
+$nganhRepo = new Repository('nganh_xet_tuyen');
+$accRepo = new Repository('account');
 if ($conn->connect_error) {
     die("Kết nối thất bại: " . $conn->connect_error);
 }
 
 if (isset($_GET['id'])) {
     $nganhId = $_GET['id'];
-    
     // Lấy thông tin ngành cần sửa
-    $sql = "SELECT * FROM nganh_xet_tuyen WHERE id = $nganhId";
-    $result = $conn->query($sql);
-    $nganh = $result->fetch_assoc();
-    
+    $nganh = $nganhRepo->findAll('*', ['id' => $nganhId])[0];
     // Nếu không tìm thấy ngành
     if (!$nganh) {
         echo "Ngành không tồn tại!";
@@ -36,42 +34,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<script>alert('Ngày bắt đầu phải nhỏ hơn ngày kết thúc.');</script>";
     } else {
         // Kiểm tra tên ngành có tồn tại chưa
-        $checkSQL = "SELECT COUNT(*) AS count FROM nganh_xet_tuyen WHERE tenNganhXetTuyen = '$tenNganh' AND id != $nganhId";
-        $result = $conn->query($checkSQL);
-        $row = $result->fetch_assoc();
-
-        if ($row['count'] > 0) {
-            echo "<script>alert('Tên ngành này đã tồn tại. Vui lòng chọn tên ngành khác.');</script>";
-        } else {
-            // Cập nhật ngành vào bảng nganh_xet_tuyen
-            $sql = "UPDATE nganh_xet_tuyen SET tenNganhXetTuyen = '$tenNganh', khoiXetTuyen = '$khoi', nguoiDuyet = '$nguoi_duyet', dateStart = '$ngayBatDau', dateEnd = '$ngayKetThuc' WHERE id = $nganhId";
-            if ($conn->query($sql) === TRUE) {
-                // Xóa các giáo viên duyệt cũ và thêm lại giáo viên duyệt mới
-                $conn->query("DELETE FROM giao_vien_duyet WHERE nganhId = $nganhId");
-                if (!empty($giaoVienDuyet)) {
-                    foreach ($giaoVienDuyet as $giaoVienId) {
-                        $sqlGV = "INSERT INTO giao_vien_duyet (nganhId, giaoVienId) VALUES ($nganhId, $giaoVienId)";
-                        $conn->query($sqlGV);
-                    }
-                }
-                echo "<script>alert('Ngành đã được sửa thành công!'); window.location.href = 'them_nganh.php';</script>";
-            } else {
-                echo "Lỗi: " . $sql . "<br>" . $conn->error;
+        if ($tenNganh != $nganh['tenNganhXetTuyen']) {
+            $checkSQL = $nganhRepo->findAll('*', ['tenNganhXetTuyen' => $tenNganh])[0];
+            if($checkSQL){
+                echo "<script>alert('Tên ngành này đã tồn tại. Vui lòng chọn tên ngành khác.');</script>";
             }
+        }else {
+            $tenNganh = $nganh['tenNganhXetTuyen'];
         }
+        $dataUpload = [
+            'tenNganhXetTuyen' => $tenNganh,
+            'khoiXetTuyen' => $khoi,
+            'nguoiDuyet' => $nguoi_duyet,
+            'dateStart' => $ngayBatDau,
+            'dateEnd' => $ngayKetThuc
+        ];
+        $nganhRepo->updateOne($dataUpload, $nganhId);
+        navigate('them_nganh.php');
     }
 }
+
 
 // Lấy danh sách giáo viên từ cơ sở dữ liệu
-$sql = "SELECT id, full_name FROM account WHERE roles = 0";
-$result = $conn->query($sql);
+$teachers = $accRepo->findAll(['id', 'full_name'], ['roles' => 0]);
 
-$teachers = [];
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $teachers[] = $row;
-    }
-}
 
 $conn->close();
 ?>
@@ -184,7 +170,7 @@ $conn->close();
     <div class="layout">
         <form id="nganhForm" class="container" action="" method="POST">
             <label for="tenNganh">Tên Ngành:</label>
-            <input type="text" id="tenNganh" name="tenNganh" value="<?php echo $nganh['tenNganhXetTuyen'];?>" disabled required><br><br>
+            <input type="text" id="tenNganh" name="tenNganh" value="<?php echo $nganh['tenNganhXetTuyen'];?>" required><br><br>
 
             <label>Chọn Khối:</label><br>
             <?php

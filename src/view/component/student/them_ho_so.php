@@ -77,7 +77,7 @@
   .date{
     width: 90%;
     text-align: end;
-    background-image: url("../storage/image_system/icons8-date-15.png");
+    background-image: url("src/storage/image_system/icons8-date-15.png");
     background-repeat: no-repeat;
     margin: 0px;
     margin-top: 5px;
@@ -97,14 +97,14 @@
     border-radius: 20px;
     text-align: center;
     color: #4BA665;
-    background-image: url("../storage/image_system/icons8-time-machine-30-1.png");
+    background-image: url("src/storage/image_system/icons8-time-machine-30-1.png");
     background-repeat: no-repeat;
     background-position: 12px 12px;
   }
 </style>
 
 <div class="body_page_render">
-  <?php include "../php/them_ho_so_hs.php"?>
+
   <form action="" method="post">
     <div class="listNganh">
       <?php 

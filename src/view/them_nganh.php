@@ -16,7 +16,7 @@
     require "../php/data.php";
 
     handleSession();
-    // checkRolesAccess("1");
+    checkRolesAccess("1");
   ?>
   <div>
     <?php header_page("Quản lý ngành xét tuyển", '..');?>

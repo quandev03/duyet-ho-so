@@ -23,6 +23,7 @@
     require "../php/data.php";
     require "component/header.php";
     require "../php/messenge.php";
+
   
     session_start();
     handleSession();

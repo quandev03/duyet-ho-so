@@ -3,7 +3,7 @@ $idHoSo = $_GET["id"];
 // echo "ACs";
 $thongTinHoSo= layThongTinHoSo($idHoSo);
 if(isset($_POST["cancel"])) {
-  echo "<a href='them_ho_so.php' id = 'navigate'></a>";
+  echo "<a href='../..' id = 'navigate'></a>";
   echo "<script>";
   echo "document.getElementById('navigate').click()";
   echo "</script>";

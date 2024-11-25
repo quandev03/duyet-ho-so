@@ -1,12 +1,18 @@
 <?php
 class Repository {
+  
   private $conn;
   private $table;
+  
 
   public function __construct(
     String $Table
   ){
-    require "../../config.php";
+    if ($_SERVER["PHP_SELF"] == "/duyet-ho-so/index.php") {
+      require "./config.php";
+  } else {
+      require "../../config.php";
+  }
     $this->conn = mysqli_connect($HOST, $USERNAME_BD, $PASSWORD_BD, $DATABASE_BD);
     if (!$this->conn) {
       die("Connection failed: " . mysqli_connect_error());
@@ -126,6 +132,9 @@ class Repository {
         }
       }
       return $data;
+  }
+  public function test(): void {
+    echo "test";
   }
 }
 

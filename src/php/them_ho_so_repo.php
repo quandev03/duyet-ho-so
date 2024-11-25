@@ -1,7 +1,7 @@
 <?php
-require "../Database/Repository.php";
 session_start();
-$mysqli = new Repository( 'nganh_xet_tuyen');
+
+$mysqli = new Repository( ' nganh_xet_tuyen');
 $hoSoRepo = new Repository("ho_so_xet_tuyen");
 $accRepo = new Repository("account");
 $notification = new Repository( "notification");
@@ -14,6 +14,7 @@ function layDuLieuNganhChoHocSinh() {
   return $data;
 }
 function layDuLieuHoSo() {
+
   global $hoSoRepo;
   global $mysqli;
   if ($_SESSION['roles']) {
@@ -29,6 +30,7 @@ function layDuLieuHoSo() {
     return $listHoSo;
   }
 }
+
 function layTenHocSinh($idHocSinh) {
   global $accRepo;
   return $accRepo->findAll(["full_name"], ["id"=> $idHocSinh])[0]["full_name"];

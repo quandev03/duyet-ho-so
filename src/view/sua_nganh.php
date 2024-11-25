@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="../CSS/main.css">
   <link rel="stylesheet" href="../CSS/header.css">
   <link rel="stylesheet" href="../CSS/sua_nganh.css">
+  <link rel="stylesheet" href="../CSS/messenge.css">
 </head>
 <body> 
   <?php 
@@ -14,9 +15,10 @@
     require "component/header.php";
     require "../../config.php";
     require "../php/data.php";
+    require "../Database/Repository.php";
 
     handleSession();
-    // checkRolesAccess("1");
+    checkRolesAccess("1");
   ?>
   <div>
     <?php header_page("Sửa ngành xét tuyển", '..');?>
