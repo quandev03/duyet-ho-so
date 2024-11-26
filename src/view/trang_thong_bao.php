@@ -50,14 +50,26 @@
   <h1>Thông báo</h1>
   <form action="" method="post">
   <button class="btnXoa" name="btn_exits">Thoát</button>
-  </form>
-  <?php
-  
-  ?>
+
   <?php
     session_start();
     require "../php/notification_repo.php";
+    function hienThiThongBao($title, $content, $thoiGian, $id) {
+      echo '
+      <div class="thongBao">
+        <h2 class="title">' . htmlspecialchars($title) . '</h2>
+        <p class="content">' . htmlspecialchars($content) . '</p>
+        <p class="thoiGian">' . htmlspecialchars($thoiGian) . '</p>
+        <button class="btnXoa" name ="btnXoa" value ="'.$id.'">Xoá thông báo</button>
+      </div>';
+    }
+    $dataThongBao = getDataNotification();
+    foreach ($dataThongBao as $thongBao) {
+      hienThiThongBao($thongBao["title"], $thongBao["messenge"], $thongBao["thoiGian"], $thongBao["id"]);
+    }
+
     include "../php/trang_thong_bao.php";
   ?>
+  </form>
 </body>
 </html>

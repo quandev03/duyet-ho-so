@@ -136,7 +136,7 @@ $khoiXetTuyen = explode(' ', $infoNganh['khoiXetTuyen']);
         } ?></label>
       <input type="number" name="mon3" id="" placeholder="Nhập điểm" max="10" min="0" value="0" class="input_diem">
     </div>
-    <input type="file" name="fileUpload" accept="applicaion/pdf" />
+    <input type="file" name="fileUpload" accept="application/pdf" />
     <?php
     $isSubmitted = checkDaNopHoSo($_SESSION['userId'], $infoNganh['id']);
     ?>

@@ -37,12 +37,7 @@ if(isset($_POST['btnNopHoSo'])) {
       $result = nopHoSo($data, $idUser);
       if($result == 1) {
         displayMessage('Nộp hồ sơ thành công', 'success');
-        echo  '<a href="them_ho_so.php" id="navigate"></a>';
-        echo "<script>";
-        echo "setTimeout(() => {
-          document.getElementById('navigate').click()
-        }, 3000);";
-        echo "</script>";
+        navigate("../..", 3000);
       }
       else {
         displayMessage('Nộp hồ sơ thất bại', 'error');

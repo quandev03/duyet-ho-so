@@ -1,9 +1,6 @@
 <?php
 
-// if(isset($_POST["btn_nop"])) {
-//   echo "<a href='src/view/nop_ho_so.php?id=".$_POST["btn_nop"]."' id='navigate'/>";
-//   echo "<script>";
-//   echo "document.getElementById('navigate').click();";
-//   echo "</script>";
+if(isset($_POST["btn_nop"])) {
+  navigate("src/view/nop_ho_so.php?id=".$_POST["btn_nop"], 0);
 
-// }
+}

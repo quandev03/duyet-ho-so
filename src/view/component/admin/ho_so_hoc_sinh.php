@@ -15,7 +15,6 @@ justify-content: space-around;
 .btnXemHocBa {
   width: 200px;
   height: 50px;
-  background-color: #4BA665;
   padding-left: 50px;
   background-image: url("../storage/image_system/icons8-document-30.png");
   background-repeat: no-repeat;
@@ -70,8 +69,9 @@ justify-content: space-around;
 </style>
 <?php 
   $khoiXetTuyen = "A00";
+  
   ?>
-   <?php include "../php/ho_so_hoc_sinh.php"; ?> 
+   <?php include "../php/ho_so_hoc_sinh.php";?> 
 <form class='body_page_render' method="post">
   <div class="display">
     <div class='infoHoSo'>
@@ -83,7 +83,13 @@ justify-content: space-around;
         <h3 class='text'>Ngành: <?php echo $thongTinHoSo["tenNganhXetTuyen"]?></h3>
         <p class='text'>Ngày đăng ký: <?php echo $thongTinHoSo["createAt"]?></p>
       </div>
-      <button type='submit' class="btnXemHocBa" name="btnXemHocBa">Xem học bạ</button>
+      <button 
+          type='submit' 
+          class=" btnXemHocBa <?php if($thongTinHoSo["hoc_ba"] != null)  echo "btnSucess"; else echo "btnDelete" ?>" 
+          name="btnXemHocBa"
+        >
+        <?php if($thongTinHoSo["hoc_ba"] != null)  echo "Xem học bạ"; else echo "Chưa nộp học bạ" ?>
+      </button>
     </div>
     <div class='xetTuyen'>
       <h4>Khối: <?php echo $khoiXetTuyen?></h4>

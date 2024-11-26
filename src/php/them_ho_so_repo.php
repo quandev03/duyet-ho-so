@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+date_default_timezone_set("Asia/Ho_Chi_Minh");
 $mysqli = new Repository( ' nganh_xet_tuyen');
 $hoSoRepo = new Repository("ho_so_xet_tuyen");
 $accRepo = new Repository("account");
@@ -55,7 +55,7 @@ function duyetHoSo($idHoSo) {
   $dataNofification = [
     "title"=>"'Hồ sơ được duyệt'", 
     "sent_to"=> $infoHoSo["idHocSinh"], 
-    "messenge"=> "'Hồ sơ của bạn đã được ".$messenge." được duyệt'"
+    "messenge"=> "'Hồ sơ của bạn đã được ".$messenge." được duyệt lúc". date("H:i:s d-m-Y")."'"
   ];
   if($roles==1 && $infoHoSo["trangThai"] == 1){
     displayMessage("Hồ sơ đã được duyệt", "warning");
@@ -89,7 +89,7 @@ function tuChoiHoSoHS($idHoSo) {
   $dataNofification = [
     "title"=>"'Hồ sơ bị từ chối'", 
     "sent_to"=> $infoHoSo["idHocSinh"], 
-    "messenge"=> "'Hồ sơ của bạn đã bị ".$messenge." từ chối'"
+    "messenge"=> "'Hồ sơ của bạn đã bị ".$messenge." từ chối lúc". date("H:i:s d-m-Y")."'"
   ];
   if($roles==1 && $infoHoSo["trangThai"] == -1){
     return displayMessage("Hồ sơ đã từ chối", "warning");
@@ -118,7 +118,7 @@ function xoaHoSoHS($idHoSo) {
   $dataNofification = [
     "title"=>"'Hồ sơ Xoá'", 
     "sent_to"=> $data["idHocSinh"], 
-    "messenge"=> "'Hồ sơ của bạn đã bị ".$messenge." xoá'"
+    "messenge"=> "'Hồ sơ của bạn đã bị ".$messenge." xoá lúc". date("H:i:s d-m-Y")."'"
   ];
   $url = "../storage/file_upload/hoc_ba/".$data["hoc_ba"];
   unlink($url);
