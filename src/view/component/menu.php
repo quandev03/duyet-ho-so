@@ -41,8 +41,8 @@
         echo "<hr>";
       }
       elseif($_SESSION['roles'] == -1){
-        echo "<button type='submit' class='btn_navigate' name='menu' value='themHoSo'>Nộp hồ sơ</button>";
-        echo "<hr>";
+        // echo "<button type='submit' class='btn_navigate' name='menu' value='themHoSo'>Nộp hồ sơ</button>";
+        // echo "<hr>";
         echo "<button type='submit' class='btn_navigate' name='menu' value='profile'>Profile</button>";
         echo "<hr>";
       }
