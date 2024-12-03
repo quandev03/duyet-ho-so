@@ -53,7 +53,7 @@ form {
   
   background-image: url(<?php 
   // print_r( $_SERVER);
-  if ($_SERVER["PHP_SELF"] == "/duyet-ho-so/index.php") {
+  if ($_SERVER["PHP_SELF"] == "/") {
       echo "src/storage/image_system/icons8-notification-30.png";
   } else {
       echo "../storage/image_system/icons8-notification-30.png";
@@ -84,7 +84,7 @@ if(isset($_POST["btnNotification"])){
   // echo "<script>document.querySelector('.dialog_notification').style.display = 'block';</script>";
   // header("Location: trang_thong_bao.php");
   // print_r($_SERVER);
-  if ($_SERVER["PHP_SELF"] == "/duyet-ho-so/index.php") {
+  if ($_SERVER["PHP_SELF"] == "/") {
     header("Location: src/view/trang_thong_bao.php");
 } else {
   header("Location: trang_thong_bao.php");

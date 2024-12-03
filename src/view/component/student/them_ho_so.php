@@ -61,6 +61,18 @@
     align-items: center;
     width: 15%;
   }
+  .btnNopHoSoQH{
+    width: 25%;
+    height: 50%;
+    padding-left: 50px;
+    background-color: rgba(255, 17, 17, 0.11);
+    border-radius: 20px;
+    text-align: center;
+    color: red;
+    background-image: url("src/storage/image_system/icons8-time-machine-30-2.png");
+    background-repeat: no-repeat;
+    background-position: 12px 12px;
+  }
   .dateStart, .dateEnd {
     display: flex;
     flex-direction: column;

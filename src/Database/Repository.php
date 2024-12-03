@@ -8,7 +8,7 @@ class Repository {
   public function __construct(
     String $Table
   ){
-    if ($_SERVER["PHP_SELF"] == "/duyet-ho-so/index.php") {
+    if ($_SERVER["PHP_SELF"] == "/") {
       require "./config.php";
   } else {
       require "../../config.php";

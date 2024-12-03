@@ -94,6 +94,7 @@
 require '../php/data.php';
 $idNganh = $_GET['id'];
 $infoNganh = layThongTinNganhXetTuyen($idNganh)[0];
+
 $khoiXetTuyen = explode(' ', $infoNganh['khoiXetTuyen']);
 ?>
 <div class="body_page_render">

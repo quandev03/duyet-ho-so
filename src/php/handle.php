@@ -37,4 +37,4 @@ function navigate($path, $countDown = 0) {
     document.getElementById('navigate').click()
   }, $countDown);";
   echo "</script>";
-}
+} 

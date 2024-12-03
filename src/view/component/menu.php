@@ -59,10 +59,10 @@
       switch ($menu) {
         case 'home':
 
-          if ($uri =="/duyet-ho-so/"){
+          if ($uri =="/"){
             header("Location: ./");
             break;
-          }elseif ($uri == "/duyet-ho-so/index.php"){
+          }elseif ($uri == "/index.php"){
             header("Location: ./");
             break;
           }
@@ -71,10 +71,10 @@
             break;
           }
         case 'themHoSo':
-          if ($uri =="/duyet-ho-so/"){
+          if ($uri =="/"){
             echo "<script>window.location.href = 'src/view/them_ho_so.php';</script>";
             break;
-          }elseif ($uri == "/duyet-ho-so/index.php"){
+          }elseif ($uri == "/index.php"){
             // header("Location: src/view/them_ho_so.php");
             echo "<script>window.location.href = 'src/view/them_ho_so.php';</script>";
             break;
@@ -84,10 +84,10 @@
             break;
           }
         case 'profile':
-          if ($uri =="/duyet-ho-so/"){
+          if ($uri =="/"){
             echo "<script>window.location.href = 'src/view/xem_ho_so_hoc_sinh_da_dang_ki.php';</script>";
             break;
-          }elseif ($uri == "/duyet-ho-so/index.php"){
+          }elseif ($uri == "/index.php"){
             echo "<script>window.location.href = 'src/view/xem_ho_so_hoc_sinh_da_dang_ki.php';</script>";
             break;
           }else{
@@ -95,10 +95,10 @@
             break;
           }
         case 'thongKe':
-          if ($uri =="/duyet-ho-so/"){
+          if ($uri =="/"){
             echo "<script>window.location.href = 'src/view/thong_ke_ho_so.php';</script>";
             break;
-          }elseif ($uri == "/duyet-ho-so/index.php"){
+          }elseif ($uri == "/index.php"){
             echo "<script>window.location.href = 'src/view/thong_ke_ho_so.php';</script>";
             break;
           }else{
@@ -106,10 +106,10 @@
             break;
           }
           case 'quanLyNganh':
-            if ($uri =="/duyet-ho-so/"){
+            if ($uri =="/"){
               echo "<script>window.location.href = 'src/view/them_nganh.php';</script>";
               break;
-            }elseif ($uri == "/duyet-ho-so/index.php"){
+            }elseif ($uri == "/index.php"){
               echo "<script>window.location.href = 'src/view/them_nganh.php';</script>";
               break;
             }else{
@@ -119,10 +119,10 @@
           
           case "dangXuat":
             session_destroy();
-            if ($uri =="/duyet-ho-so/"){
+            if ($uri =="/"){
               echo "<script>window.location.href = 'src/view/dang_nhap.php';</script>";
               break;
-            }elseif ($uri == "/duyet-ho-so/index.php"){
+            }elseif ($uri == "/index.php"){
               echo "<script>window.location.href = 'src/view/dang_nhap.php';</script>";
               break;
             }else{

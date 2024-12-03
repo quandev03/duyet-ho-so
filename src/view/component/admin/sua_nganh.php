@@ -1,15 +1,7 @@
 <?php
-$servername = $HOST;
-$username = $USERNAME_BD;
-$password = $PASSWORD_BD;
-$dbname = $DATABASE_BD;
 
-$conn = new mysqli($servername, $username, $password, $dbname);
 $nganhRepo = new Repository('nganh_xet_tuyen');
 $accRepo = new Repository('account');
-if ($conn->connect_error) {
-    die("Kết nối thất bại: " . $conn->connect_error);
-}
 
 if (isset($_GET['id'])) {
     $nganhId = $_GET['id'];
@@ -58,8 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // Lấy danh sách giáo viên từ cơ sở dữ liệu
 $teachers = $accRepo->findAll(['id', 'full_name'], ['roles' => 0]);
 
-
-$conn->close();
 ?>
 
     <meta charset="UTF-8">
