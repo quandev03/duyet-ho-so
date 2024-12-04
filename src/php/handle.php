@@ -26,7 +26,7 @@ function checkRolesAccess($rolesAccess) {
 function reloadPage($setCountDown = 0) {
   echo"<script>";
   echo  "setTimeout(() => {
-    location.reload();
+    window.location.reload();
   }, $setCountDown);";
   echo "</script>";
 }

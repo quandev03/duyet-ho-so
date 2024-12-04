@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="src/CSS/main.css">
   <link rel="stylesheet" href="./src/CSS/them_ho_so.css">
   <link rel="stylesheet" href="./src/CSS/messenge.css">
+  <link rel="shortcut icon" href="https://dtdh.hnue.edu.vn/static/images/logos/logo_blue_hnue.svg">
   <style>
     .header {
       display: flex;

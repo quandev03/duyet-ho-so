@@ -68,7 +68,15 @@
       hienThiThongBao($thongBao["title"], $thongBao["messenge"], $thongBao["thoiGian"], $thongBao["id"]);
     }
 
-    include "../php/trang_thong_bao.php";
+    if(isset($_POST["btn_exits"])) {
+      header("Location: ../..");
+    
+    }
+    if (isset($_POST["btnXoa"])) {
+      $id = $_POST["btnXoa"];
+      deleteNotification($id);
+      header("Location: ./trang_thong_bao.php");
+    }
   ?>
   </form>
 </body>

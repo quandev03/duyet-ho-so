@@ -15,7 +15,7 @@ function renderNganh($tenNganh, $khoiXetTuyen =[], $ngayBatDau, $ngayKetThuc, $i
   echo   "<h5>Ngày kết thúc:</h5>";
   echo   "<p class='date'>".$ngayKetThuc."</p>";
   echo "</div>";
-  if(soSanhThoiGian($ngayKetThuc)) {
+  if(!soSanhThoiGian($ngayKetThuc)) {
     echo "<button type='submit' class='btnNopHoSoQH' name='btn_nop' value ='".-$idNganh."'>Đã hết hạn</button>";
   } else {
     echo "<button type='submit' class='btnNopHoSo' name='btn_nop' value ='".$idNganh."'>Nộp ngay</button>";
@@ -23,11 +23,15 @@ function renderNganh($tenNganh, $khoiXetTuyen =[], $ngayBatDau, $ngayKetThuc, $i
   echo "</div>";
 }
 function soSanhThoiGian($ngayKetThuc) {
-  $today = date("Y-m-d");
-  if($today > $ngayKetThuc) {
-    return true;
-  }
-  return false;
+    $today = date("d-m-Y"); // Lấy ngày hiện tại
+    // Chuyển đổi sang timestamp để so sánh
+    $timestampToday = strtotime($today);
+    $timestampEndDate = strtotime($ngayKetThuc);
+
+    if ($timestampToday <= $timestampEndDate) {
+        return true; // Hôm nay nhỏ hơn hoặc bằng ngày kết thúc
+    }
+    return false; // Hôm nay lớn hơn ngày kết thúc
 }
 function renderHoSoHS (
   $idHoSo,
