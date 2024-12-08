@@ -63,10 +63,48 @@
   justify-content: end;
   align-items: center;
 }
+.filter {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-bottom: 20px;
+}
 </style>
+<?php include "./src/php/them_ho_so_admin.php";
+  // print_r($listNganh);
+  // print_r($data);
+?>
 <form method="post" class="body_page_render">
+  <div class="filter">
+  <label for="">Ngành xét tuyển</label>
+  <select name="nganhXetTuyenFilter" onchange="this.form.submit()">
+    <option value="0" <?php if ($_POST["nganhXetTuyenFilter"] == "0"){echo "selected";} ?>>Tất cả</option>
+    <?php 
+      foreach($listNganh as $key => $value) {
+        echo "<option value='".$value["id"]."' ".(isset($_POST["nganhXetTuyenFilter"]) && $_POST["nganhXetTuyenFilter"] == $value["id"] ? "selected" : "").">".$value["tenNganhXetTuyen"]."</option>";
+      }
+    ?>
+  </select>
+  <label for="">Trạng thái</label>
+  <select name="statusFilter" onchange="this.form.submit()">
+    <option value="2" <?php if ($_POST["statusFilter"] == "3"){echo "selected";} ?>>Tất cả</option>
+    <option value="1" <?php if ($_POST["statusFilter"] == "1"){echo "selected";} ?>>Đã duyệt</option>
+    <option value="0" <?php if ($_POST["statusFilter"] == "0"){echo "selected";} ?>>Chưa duyệt</option>
+    <option value="-1" <?php if ($_POST["statusFilter"] == "-1"){echo "selected";} ?>>Từ chối</option>
+  </select>
+  </div>
   <?php 
-    include ("./src/php/them_ho_so_admin.php");
+    if(isset($_POST["nganhXetTuyenFilter"]) && $_POST["nganhXetTuyenFilter"] != "0"){
+      $data = array_filter($data, function($value) {
+        return $value["nganhXetTuyen"] == $_POST["nganhXetTuyenFilter"];
+      });
+    }
+    if(isset($_POST["statusFilter"]) && $_POST["statusFilter"] != "2"){
+      if($_POST["statusFilter"] == "2") return $data;
+      $data = array_filter($data, function($value) {
+        return $value["trangThai"] == $_POST["statusFilter"];
+      });
+    }
     if($data){
       foreach($data as $key => $value) {
         renderHoSoHS($value["id"], layTenHocSinh($value["idHocSinh"]), layTenChuyenNganh($value["nganhXetTuyen"]),$value["createAt"], nguoiDuyetHoSo($value["nguoiDuyet"]), $value["trangThai"], $value["khoiXetTuyen"], [$value["diemMon1"], $value["diemMon2"], $value["diemMon3"]]);

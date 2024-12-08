@@ -100,7 +100,9 @@
   
   <div class="body_page">
     <?php 
+
         include "./src/view/component/menu.php";
+        
         checkRoles(pathAdmin: "./src/view/component/admin/them_ho_so.php", pathTeacher: "./src/view/component/admin/them_ho_so.php", pathStudent: "./src/view/component/student/them_ho_so.php");
     
     ?>

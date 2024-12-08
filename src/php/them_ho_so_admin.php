@@ -1,6 +1,6 @@
 <?php 
 $data= layDuLieuHoSo();
-
+$listNganh = layDanhSachChuyenNganh();
 if(isset($_POST['xemHoSoHS'])) {
   echo "<a href='src/view/ho_so_hoc_sinh.php?id=".$_POST['xemHoSoHS']."' id = 'navigate'></a>";
   echo "<script>";

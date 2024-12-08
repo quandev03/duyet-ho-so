@@ -136,3 +136,13 @@ function checkHocBa() {
   $idHocSinh = $_SESSION["userId"];
   return $accRepo->findAll(["hocBa"], ["id"=> $idHocSinh])[0]["hocBa"]!==null;
 }
+
+function layDanhSachChuyenNganh(): array {
+  global $mysqli;
+
+  if ($_SESSION['roles']) {
+    return $mysqli->findAll("*");
+  }else{
+    return $mysqli->findAll("*", ["status"=> 1]);
+  }
+}
