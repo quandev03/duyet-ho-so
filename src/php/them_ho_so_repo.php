@@ -141,8 +141,14 @@ function layDanhSachChuyenNganh(): array {
   global $mysqli;
 
   if ($_SESSION['roles']) {
-    return $mysqli->findAll("*");
+    return $mysqli->findAll(['*']);
   }else{
-    return $mysqli->findAll("*", ["status"=> 1]);
+    $sql = "SELECT * FROM nganh_xet_tuyen WHERE status = 1 AND nguoiDuyet LIKE '%_".$_SESSION['userId']."_%'";
+    $result = $mysqli->__model()->query($sql);
+    $data = [];
+    while ($row = $result->fetch_assoc()) {
+      $data[] = $row;
+    }
+    return $data;
   }
 }
